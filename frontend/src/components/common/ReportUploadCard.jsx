@@ -1,4 +1,4 @@
-﻿import React, { useState } from 'react';
+import React, { useState } from 'react';
 import { UploadCloud, FileText, Sparkles, CheckCircle, AlertCircle, X, Download, Volume2, Square, Loader2 } from 'lucide-react';
 import { uploadReportAPI } from '../../services/api';
 import { exportToPDF } from '../../services/pdfGenerator';
@@ -23,8 +23,8 @@ export function ReportUploadCard({ contextProblem = '', toolName = 'Health Tool'
     }
 
     try {
-      const data = await uploadReportAPI(formData);
-      setReportResult(data);
+      const response = await uploadReportAPI(formData);
+      setReportResult(response.data || response);
     } catch (err) {
       alert('Failed to analyze document. Please try a different file.');
     } finally {
