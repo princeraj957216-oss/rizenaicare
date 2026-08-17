@@ -1,0 +1,7 @@
+﻿{
+  "version": 2,
+  "projects": [
+    { "name": "rizen-care-frontend", "src": "frontend" },
+    { "name": "rizen-care-backend", "src": "backend" }
+  ]
+}

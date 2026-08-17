@@ -1,0 +1,45 @@
+{
+  "brand": "RIZEN CARE",
+  "subtitle": "AI சுகாதார உதவியாளர்",
+  "nav": {
+    "dashboard": "டாஷ்போர்டு",
+    "aiHealthAssistant": "AI சுகாதார உதவியாளர்",
+    "symptomChecker": "அறிகுறி சரிபார்ப்பு",
+    "problemMedicine": "பிரச்சினை → மருந்து",
+    "findDoctors": "மருத்துவர்களைக் கண்டறியவும்",
+    "bookAppointment": "முன்பதிவு செய்யவும்",
+    "medicinesPharmacy": "மருந்துகள் & பார்மசி",
+    "labTests": "லேப் சோதனைகள்",
+    "healthRecords": "சுகாதார பதிவுகள்",
+    "healthTips": "சுகாதார குறிப்புகள்",
+    "dietNutrition": "உணவு & ஊட்டச்சத்து",
+    "wellnessTracker": "உடற்பயிற்சி டிராக்கர்",
+    "emergencyHelp": "அவசர உதவி",
+    "reports": "அறிக்கைகள்",
+    "settings": "அமைப்புகள்"
+  },
+  "header": {
+    "searchPlaceholder": "அறிகுறிகள், மருந்துகள், மருத்துவர்கள், மருத்துவமனைகளைத் தேடுங்கள்...",
+    "useMyLocation": "எனது இருப்பிடத்தைப் பயன்படுத்தவும்",
+    "selectCity": "நகரம் / PIN தேர்ந்தெடுக்கவும்"
+  },
+  "hero": {
+    "greeting": "வணக்கம்! 👋",
+    "title": "இன்று நான் உங்களுக்கு எப்படி உதவ முடியும்?",
+    "subtitle": "உங்கள் AI சுகாதார உதவியாளர் உங்களுக்காக இங்கே உள்ளார்.",
+    "inputPlaceholder": "உங்கள் உடல்நலம் பற்றி எதையும் கேளுங்கள்...",
+    "askButton": "AI-யிடம் கேளுங்கள்",
+    "quickTags": {
+      "checkSymptoms": "அறிகுறிகளை சரிபார்க்கவும்",
+      "suggestDiet": "உணவுத் திட்டம்",
+      "medicineInteractions": "மருந்து தொடர்புகள்",
+      "healthTips": "சுகாதார குறிப்புகள்"
+    }
+  },
+  "healthScore": {
+    "title": "சுகாதார மதிப்பீடு",
+    "good": "நன்று",
+    "outOf": "/100",
+    "subtitle": "சிறந்த எதிர்காலத்திற்காக உங்கள் ஆரோக்கியத்தை கண்காணிக்கவும்!"
+  }
+}

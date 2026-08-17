@@ -1,0 +1,45 @@
+{
+  "brand": "RIZEN CARE",
+  "subtitle": "AI హెల్త్ అసిస్టెంట్",
+  "nav": {
+    "dashboard": "డాష్‌బోర్డ్",
+    "aiHealthAssistant": "AI హెల్త్ అసిస్టెంట్",
+    "symptomChecker": "లక్షణాల తనిఖీ",
+    "problemMedicine": "సమస్య → ఔషధం",
+    "findDoctors": "వైద్యులను కనుగొనండి",
+    "bookAppointment": "అపాయింట్‌మెంట్ బుక్ చేయండి",
+    "medicinesPharmacy": "మందులు & ఫార్మసీ",
+    "labTests": "ల్యాబ్ పరీక్షలు",
+    "healthRecords": "ఆరోగ్య రికార్డులు",
+    "healthTips": "ఆరోగ్య చిట్కాలు",
+    "dietNutrition": "ఆహారం & పోషకాహారం",
+    "wellnessTracker": "వెల్నెస్ ట్రాకర్",
+    "emergencyHelp": "అత్యవసర సహాయం",
+    "reports": "నివేదికలు",
+    "settings": "సెట్టింగ్‌లు"
+  },
+  "header": {
+    "searchPlaceholder": "లక్షణాలు, మందులు, వైద్యులు, ఆసుపత్రుల కోసం శోధించండి...",
+    "useMyLocation": "నా స్థానాన్ని ఉపయోగించండి",
+    "selectCity": "నగరం / పిన్ ఎంచుకోండి"
+  },
+  "hero": {
+    "greeting": "నమస్కారం! 👋",
+    "title": "ఈరోజు నేను మీకు ఎలా సహాయం చేయగలను?",
+    "subtitle": "మీ AI ఆరోగ్య సహాయకుడు మీ కోసం ఇక్కడ ఉన్నారు.",
+    "inputPlaceholder": "మీ ఆరోగ్యం గురించి ఏదైనా అడగండి...",
+    "askButton": "AIని అడగండి",
+    "quickTags": {
+      "checkSymptoms": "లక్షణాలను తనిఖీ చేయండి",
+      "suggestDiet": "డైట్ ప్లాన్",
+      "medicineInteractions": "మందుల ప్రభావాలు",
+      "healthTips": "ఆరోగ్య చిట్కాలు"
+    }
+  },
+  "healthScore": {
+    "title": "ఆరోగ్య స్కోరు",
+    "good": "మంచిది",
+    "outOf": "/100",
+    "subtitle": "మెరుగైన భవిష్యత్తు కోసం మీ ఆరోగ్యాన్ని ట్రాక్ చేయండి!"
+  }
+}

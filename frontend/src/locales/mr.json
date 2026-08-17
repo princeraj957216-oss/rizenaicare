@@ -1,0 +1,45 @@
+{
+  "brand": "RIZEN CARE",
+  "subtitle": "एआय आरोग्य सहाय्यक",
+  "nav": {
+    "dashboard": "डॅशबोर्ड",
+    "aiHealthAssistant": "एआय आरोग्य सहाय्यक",
+    "symptomChecker": "लक्षण तपासणी",
+    "problemMedicine": "समस्या → औषध",
+    "findDoctors": "डॉक्टर शोधा",
+    "bookAppointment": "अपॉइंटमेंट बुक करा",
+    "medicinesPharmacy": "औषधे आणि फार्मसी",
+    "labTests": "लॅब चाचण्या",
+    "healthRecords": "आरोग्य नोंदी",
+    "healthTips": "आरोग्य टिप्स",
+    "dietNutrition": "आहार आणि पोषण",
+    "wellnessTracker": "वेलनेस ट्रॅकर",
+    "emergencyHelp": "तातडीची मदत",
+    "reports": "अहवाल",
+    "settings": "सेटिंग्ज"
+  },
+  "header": {
+    "searchPlaceholder": "लक्षणे, औषधे, डॉक्टर, रुग्णालये शोधा...",
+    "useMyLocation": "माझे स्थान वापरा",
+    "selectCity": "शहर / पिन निवडा"
+  },
+  "hero": {
+    "greeting": "नमस्कार! 👋",
+    "title": "मी आज तुम्हाला कशी मदत करू शकतो?",
+    "subtitle": "तुमचा एआय आरोग्य सहाय्यक तुमच्यासाठी सज्ज आहे.",
+    "inputPlaceholder": "तुमच्या आरोग्याबद्दल काहीही विचारा...",
+    "askButton": "एआयला विचारा",
+    "quickTags": {
+      "checkSymptoms": "लक्षणे तपासा",
+      "suggestDiet": "आहार योजना",
+      "medicineInteractions": "औषधांचे दुष्परिणाम",
+      "healthTips": "आरोग्य टिप्स"
+    }
+  },
+  "healthScore": {
+    "title": "आरोग्य गुण",
+    "good": "उत्तम",
+    "outOf": "/१००",
+    "subtitle": "निरोगी भविष्यासाठी आरोग्याचा मागोवा घ्या!"
+  }
+}

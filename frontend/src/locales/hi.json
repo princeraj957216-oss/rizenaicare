@@ -1,0 +1,135 @@
+{
+  "brand": "RIZEN CARE",
+  "subtitle": "एआई स्वास्थ्य सहायक",
+  "nav": {
+    "dashboard": "डैशबोर्ड",
+    "aiHealthAssistant": "एआई स्वास्थ्य सहायक",
+    "symptomChecker": "लक्षण जांच (Symptom Checker)",
+    "problemMedicine": "समस्या → दवा जानकारी",
+    "findDoctors": "डॉक्टर खोजें",
+    "bookAppointment": "अपॉइंटमेंट बुक करें",
+    "medicinesPharmacy": "दवाइयां और फार्मेसी",
+    "labTests": "लैब टेस्ट",
+    "healthRecords": "स्वास्थ्य रिकॉर्ड",
+    "healthTips": "स्वास्थ्य सुझाव",
+    "dietNutrition": "आहार और पोषण",
+    "wellnessTracker": "वेलनेस ट्रैकर",
+    "emergencyHelp": "आपातकालीन सहायता",
+    "reports": "रिपोर्ट्स",
+    "settings": "सेटिंग्स"
+  },
+  "header": {
+    "searchPlaceholder": "लक्षण, दवाइयां, डॉक्टर, अस्पताल खोजें...",
+    "useMyLocation": "मेरे स्थान का उपयोग करें",
+    "selectCity": "शहर / पिन कोड चुनें"
+  },
+  "hero": {
+    "greeting": "नमस्ते! 👋",
+    "title": "आज मैं आपकी क्या सहायता कर सकता हूँ?",
+    "subtitle": "आपका एआई स्वास्थ्य सहायक आपके लिए उपलब्ध है।",
+    "inputPlaceholder": "अपने स्वास्थ्य के बारे में कुछ भी पूछें...",
+    "askButton": "एआई से पूछें",
+    "quickTags": {
+      "checkSymptoms": "लक्षण जांचें",
+      "suggestDiet": "आहार योजना",
+      "medicineInteractions": "दवा के प्रभाव",
+      "healthTips": "स्वास्थ्य सुझाव"
+    }
+  },
+  "tools": {
+    "title": "एआई स्वास्थ्य उपकरण",
+    "viewAll": "सभी उपकरण देखें",
+    "symptomChecker": "लक्षण जांच",
+    "symptomDesc": "अपने लक्षणों का विश्लेषण करें",
+    "problemMedicine": "समस्या → दवा",
+    "problemDesc": "दवा जानकारी, कारण और सावधानियां",
+    "aiDoctor": "एआई डॉक्टर परामर्श",
+    "aiDoctorDesc": "एआई डॉक्टर से 24x7 बात करें",
+    "findDoctors": "डॉक्टर खोजें",
+    "findDoctorsDesc": "अपने नजदीकी विशेषज्ञ खोजें",
+    "labTests": "घर पर लैब टेस्ट",
+    "labTestsDesc": "घर बैठे टेस्ट बुक करें",
+    "healthRecords": "स्वास्थ्य रिकॉर्ड",
+    "healthRecordsDesc": "अपने मेडिकल रिकॉर्ड देखें"
+  },
+  "problemBanner": {
+    "badge": "नया",
+    "title": "समस्या → दवा जानकारी",
+    "description": "अपनी स्वास्थ्य समस्या या लक्षण दर्ज करें और सामान्य दवा जानकारी, संभावित कारण और सावधानियां प्राप्त करें।",
+    "placeholder": "उदा. सिरदर्द, बुखार, खांसी, एसिडिटी...",
+    "button": "जानकारी प्राप्त करें",
+    "disclaimers": {
+      "general": "केवल सामान्य जानकारी",
+      "notPrescription": "यह कोई नुस्खा नहीं है",
+      "consult": "उचित जांच के लिए डॉक्टर से मिलें"
+    }
+  },
+  "metrics": {
+    "steps": "आज के कदम",
+    "sleep": "नींद",
+    "water": "पानी का सेवन",
+    "heartRate": "हृदय गति",
+    "good": "उत्तम",
+    "normal": "सामान्य",
+    "stepsGoal": "/ 10,000 कदम",
+    "waterGoal": "ग्लास"
+  },
+  "quickActions": {
+    "uploadReports": "रिपोर्ट अपलोड करें",
+    "uploadReportsDesc": "एआई विश्लेषण प्राप्त करें",
+    "medicineReminder": "दवा रिमाइंडर",
+    "medicineReminderDesc": "खुराक कभी न भूलें",
+    "orderMedicines": "दवाइयां ऑर्डर करें",
+    "orderMedicinesDesc": "तेज डिलीवरी",
+    "trackOrder": "ऑर्डर ट्रैक करें",
+    "trackOrderDesc": "अपनी डिलीवरी स्थिति देखें"
+  },
+  "trust": {
+    "secure": "100% सुरक्षित और निजी",
+    "secureDesc": "आपका डेटा एन्क्रिप्टेड और सुरक्षित है",
+    "verified": "सत्यापित डॉक्टर और अस्पताल",
+    "verifiedDesc": "हजारों मरीजों द्वारा विश्वसनीय",
+    "aiPowered": "एआई संचालित सहायता",
+    "aiPoweredDesc": "बेहतर स्वास्थ्य के लिए स्मार्ट तकनीक",
+    "support": "24x7 सहायता",
+    "supportDesc": "हम हमेशा आपकी मदद के लिए उपस्थित हैं"
+  },
+  "rightPanel": {
+    "locationPref": "आपका स्थान और प्राथमिकता",
+    "edit": "बदलें",
+    "specialization": "विशेषज्ञता",
+    "upcomingAppointments": "आगामी अपॉइंटमेंट",
+    "basedOn": "आपके स्थान और विशेषज्ञता के आधार पर",
+    "book": "बुक करें",
+    "viewAll": "सभी देखें",
+    "showingAvailable": "आपके निकट उपलब्ध स्लॉट दिखाए जा रहे हैं",
+    "nearbyHospitals": "निकटतम अस्पताल",
+    "directions": "दिशा-निर्देश",
+    "seeMore": "आस-पास और अस्पताल देखें"
+  },
+  "healthScore": {
+    "title": "स्वास्थ्य स्कोर",
+    "good": "उत्तम",
+    "outOf": "/100",
+    "subtitle": "बेहतर कल के लिए अपने स्वास्थ्य पर नजर रखें!"
+  },
+  "voice": {
+    "mic": "आवाज इनपुट",
+    "speak": "उत्तर सुनें",
+    "stop": "आवाज बंद करें",
+    "listening": "सुन रहे हैं... अब बोलें",
+    "notSupported": "इस ब्राउज़र में वॉयस समर्थित नहीं है।"
+  },
+  "actions": {
+    "copy": "कॉपी करें",
+    "copied": "कॉपी हो गया!",
+    "regenerate": "पुनः उत्पन्न करें",
+    "clear": "साफ करें",
+    "downloadPdf": "पीडीएफ डाउनलोड करें",
+    "print": "प्रिंट करें",
+    "share": "साझा करें",
+    "save": "सुरक्षित करें",
+    "delete": "हटाएं",
+    "confirmDelete": "क्या आप वाकई इस रिकॉर्ड को हटाना चाहते हैं?"
+  }
+}

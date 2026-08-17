@@ -1,0 +1,177 @@
+﻿@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --bg-main: #07090E;
+    --bg-card: #0D111A;
+    --bg-card-subtle: #121622;
+    --border-color: #1E2638;
+    --text-main: #F1F5F9;
+    --text-muted: #94A3B8;
+  }
+
+  body {
+    background-color: #07090E;
+    color: #F1F5F9;
+    font-family: 'Inter', sans-serif;
+    transition: background-color 0.25s ease, color 0.25s ease;
+  }
+}
+
+/* ========================================================== */
+/* LIGHT THEME (DAY MODE) COMPREHENSIVE OVERRIDES */
+/* ========================================================== */
+html.light body,
+html:not(.dark) body {
+  background-color: #F4F6FB !important;
+  color: #0F172A !important;
+}
+
+html.light header,
+html:not(.dark) header {
+  background-color: rgba(255, 255, 255, 0.95) !important;
+  border-color: #E2E8F0 !important;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.04);
+}
+
+html.light aside,
+html:not(.dark) aside {
+  background-color: #FFFFFF !important;
+  border-color: #E2E8F0 !important;
+  box-shadow: 1px 0 6px rgba(0, 0, 0, 0.03);
+}
+
+html.light .bg-\[\#07090E\],
+html:not(.dark) .bg-\[\#07090E\] {
+  background-color: #F4F6FB !important;
+}
+
+html.light .bg-\[\#0A0D14\],
+html:not(.dark) .bg-\[\#0A0D14\] {
+  background-color: #FFFFFF !important;
+  border-color: #E2E8F0 !important;
+}
+
+html.light .bg-\[\#0D111A\],
+html:not(.dark) .bg-\[\#0D111A\] {
+  background-color: #FFFFFF !important;
+  border-color: #E2E8F0 !important;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.03);
+}
+
+html.light .bg-\[\#121622\],
+html.light .bg-\[\#121726\],
+html.light .bg-\[\#141A28\],
+html.light .bg-\[\#192133\],
+html.light .bg-\[\#111624\],
+html.light .bg-\[\#101628\],
+html.light .bg-\[\#151228\],
+html:not(.dark) .bg-\[\#121622\],
+html:not(.dark) .bg-\[\#121726\],
+html:not(.dark) .bg-\[\#141A28\],
+html:not(.dark) .bg-\[\#192133\],
+html:not(.dark) .bg-\[\#111624\],
+html:not(.dark) .bg-\[\#101628\],
+html:not(.dark) .bg-\[\#151228\] {
+  background-color: #F1F5F9 !important;
+  border-color: #E2E8F0 !important;
+}
+
+html.light .border-\[\#161D2B\],
+html.light .border-\[\#1E2638\],
+html.light .border-\[\#20283E\],
+html.light .border-\[\#252F48\],
+html.light .border-\[\#20293F\],
+html.light .border-\[\#222B42\],
+html.light .border-\[\#1C2436\],
+html.light .border-\[\#1C2538\],
+html:not(.dark) .border-\[\#161D2B\],
+html:not(.dark) .border-\[\#1E2638\],
+html:not(.dark) .border-\[\#20283E\],
+html:not(.dark) .border-\[\#252F48\],
+html:not(.dark) .border-\[\#20293F\],
+html:not(.dark) .border-\[\#222B42\],
+html:not(.dark) .border-\[\#1C2436\],
+html:not(.dark) .border-\[\#1C2538\] {
+  border-color: #E2E8F0 !important;
+}
+
+html.light .text-white,
+html.light .text-slate-100,
+html.light .text-slate-200,
+html:not(.dark) .text-white,
+html:not(.dark) .text-slate-100,
+html:not(.dark) .text-slate-200 {
+  color: #0F172A !important;
+}
+
+html.light .text-slate-300,
+html.light .text-slate-400,
+html:not(.dark) .text-slate-300,
+html:not(.dark) .text-slate-400 {
+  color: #475569 !important;
+}
+
+html.light .text-slate-500,
+html:not(.dark) .text-slate-500 {
+  color: #64748B !important;
+}
+
+html.light input,
+html.light select,
+html.light textarea,
+html:not(.dark) input,
+html:not(.dark) select,
+html:not(.dark) textarea {
+  color: #0F172A !important;
+  background-color: #F8FAFC !important;
+  border-color: #CBD5E1 !important;
+}
+
+html.light input::placeholder,
+html.light textarea::placeholder,
+html:not(.dark) input::placeholder,
+html:not(.dark) textarea::placeholder {
+  color: #94A3B8 !important;
+}
+
+html.light .from-\[\#0D121F\],
+html:not(.dark) .from-\[\#0D121F\] {
+  --tw-gradient-from: #EFF6FF !important;
+  --tw-gradient-to: #F5F3FF !important;
+  --tw-gradient-stops: var(--tw-gradient-from), #EEF2FF, var(--tw-gradient-to) !important;
+}
+
+html.light .from-\[\#111625\],
+html:not(.dark) .from-\[\#111625\] {
+  --tw-gradient-from: #F5F3FF !important;
+  --tw-gradient-to: #EFF6FF !important;
+  --tw-gradient-stops: var(--tw-gradient-from), #EDE9FE, var(--tw-gradient-to) !important;
+}
+
+/* Custom Sleek Scrollbar */
+.custom-scrollbar::-webkit-scrollbar {
+  width: 5px;
+  height: 5px;
+}
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: transparent;
+}
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: #1E2638;
+  border-radius: 9999px;
+}
+html.light .custom-scrollbar::-webkit-scrollbar-thumb {
+  background: #CBD5E1;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(6px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.25s ease-out forwards;
+}

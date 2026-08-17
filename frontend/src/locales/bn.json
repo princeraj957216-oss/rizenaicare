@@ -1,0 +1,71 @@
+{
+  "brand": "RIZEN CARE",
+  "subtitle": "এআই স্বাস্থ্য সহকারী",
+  "nav": {
+    "dashboard": "ড্যাশবোর্ড",
+    "aiHealthAssistant": "এআই স্বাস্থ্য সহকারী",
+    "symptomChecker": "উপসর্গ পরীক্ষক",
+    "problemMedicine": "সমস্যা → ওষুধ",
+    "findDoctors": "ডাক্তার খুঁজুন",
+    "bookAppointment": "অ্যাপয়েন্টমেন্ট বুক করুন",
+    "medicinesPharmacy": "ওষুধ ও ফার্মেসি",
+    "labTests": "ল্যাব টেস্ট",
+    "healthRecords": "স্বাস্থ্য রেকর্ড",
+    "healthTips": "স্বাস্থ্য টিপস",
+    "dietNutrition": "ডায়েট ও পুষ্টি",
+    "wellnessTracker": "ওয়েলনেস ট্র্যাকার",
+    "emergencyHelp": "জরুরি সাহায্য",
+    "reports": "রিপোর্ট",
+    "settings": "সেটিংস"
+  },
+  "header": {
+    "searchPlaceholder": "উপসর্গ, ওষুধ, ডাক্তার, হাসপাতাল খুঁজুন...",
+    "useMyLocation": "আমার অবস্থান ব্যবহার করুন",
+    "selectCity": "শহর / পিন নির্বাচন করুন"
+  },
+  "hero": {
+    "greeting": "নমস্কার! 👋",
+    "title": "আজ আমি আপনাকে কীভাবে সাহায্য করতে পারি?",
+    "subtitle": "আপনার এআই স্বাস্থ্য সহকারী আপনার পাশে আছে।",
+    "inputPlaceholder": "স্বাস্থ্য সম্পর্কিত যে কোনো প্রশ্ন জিজ্ঞাসা করুন...",
+    "askButton": "এআইকে জিজ্ঞাসা করুন",
+    "quickTags": {
+      "checkSymptoms": "উপসর্গ পরীক্ষা",
+      "suggestDiet": "ডায়েট চার্ট",
+      "medicineInteractions": "ওষুধের পার্শ্বপ্রতিক্রিয়া",
+      "healthTips": "স্বাস্থ্য টিপস"
+    }
+  },
+  "tools": {
+    "title": "এআই স্বাস্থ্য সরঞ্জাম",
+    "viewAll": "সব সরঞ্জাম দেখুন",
+    "symptomChecker": "উপসর্গ পরীক্ষক",
+    "symptomDesc": "আপনার লক্ষণ বিশ্লেষণ করুন",
+    "problemMedicine": "সমস্যা → ওষুধ",
+    "problemDesc": "ওষুধের তথ্য, কারণ এবং সতর্কতা",
+    "aiDoctor": "এআই ডাক্তার পরামর্শ",
+    "aiDoctorDesc": "এআই ডাক্তারের সাথে ২৪x৭ কথা বলুন",
+    "findDoctors": "ডাক্তার খুঁজুন",
+    "findDoctorsDesc": "নিকটস্থ বিশেষজ্ঞ খুঁজুন",
+    "labTests": "বাড়িতে ল্যাব টেস্ট",
+    "labTestsDesc": "ঘরে বসে টেস্ট বুক করুন",
+    "healthRecords": "স্বাস্থ্য রেকর্ড",
+    "healthRecordsDesc": "মেডিকেল রেকর্ড দেখুন"
+  },
+  "metrics": {
+    "steps": "আজকের পদক্ষেপ",
+    "sleep": "ঘুম",
+    "water": "জল পান",
+    "heartRate": "হার্ট রেট",
+    "good": "ভালো",
+    "normal": "স্বাভাবিক",
+    "stepsGoal": "/ ১০,০০০ পদক্ষেপ",
+    "waterGoal": "গ্লাস"
+  },
+  "healthScore": {
+    "title": "স্বাস্থ্য স্কোর",
+    "good": "ভালো",
+    "outOf": "/১০০",
+    "subtitle": "সুস্থ ভবিষ্যতের জন্য আপনার স্বাস্থ্যের যত্ন নিন!"
+  }
+}
