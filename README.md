@@ -125,17 +125,6 @@ rizenaicare/
 
 ---
 
-## 🔑 AI API Keys (All Optional)
-
-| Provider | Get Key | Cost |
-|---|---|---|
-| Google Gemini | [aistudio.google.com](https://aistudio.google.com) | Free tier available |
-| OpenRouter | [openrouter.ai](https://openrouter.ai) | Pay per use |
-| Groq | [console.groq.com](https://console.groq.com) | Free tier available |
-
-> The platform includes a **built-in offline medical intelligence engine** and works without any API keys.
-
----
 
 ## ⚠️ Medical Disclaimer
 
