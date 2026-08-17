@@ -1,4 +1,4 @@
-﻿import React, { useState } from 'react';
+import React, { useState } from 'react';
 import { ThemeProvider } from './context/ThemeContext';
 import { LanguageProvider } from './context/LanguageContext';
 import { LocationProvider } from './context/LocationContext';
@@ -28,12 +28,22 @@ import { Reports } from './pages/Reports';
 import { Settings } from './pages/Settings';
 
 function AppContent() {
-  const [activePage, setActivePage] = useState('dashboard');
+  const [navigationHistory, setNavigationHistory] = useState(['dashboard']);
+  const activePage = navigationHistory[navigationHistory.length - 1];
   const [pageParams, setPageParams] = useState({});
 
   const handleNavigate = (pageId, params = {}) => {
-    setActivePage(pageId);
     setPageParams(params);
+    setNavigationHistory((history) => {
+      if (history[history.length - 1] === pageId) return history;
+      return [...history, pageId];
+    });
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
+  const handleBack = () => {
+    setNavigationHistory((history) => history.length > 1 ? history.slice(0, -1) : ['dashboard']);
+    setPageParams({});
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
@@ -90,7 +100,7 @@ function AppContent() {
 
       {/* Center Main Content Area */}
       <div className="flex-1 flex flex-col min-w-0">
-        <Header onNavigate={handleNavigate} />
+        <Header onNavigate={handleNavigate} onBack={handleBack} showBack={activePage !== 'dashboard'} />
         <main className="flex-1 p-4 md:p-6 max-w-6xl w-full mx-auto">
           {renderActivePage()}
         </main>

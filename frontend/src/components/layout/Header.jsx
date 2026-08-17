@@ -1,5 +1,5 @@
-﻿import React, { useState } from 'react';
-import { Search, MapPin, Globe, Sun, Moon, Bell, ChevronDown, User, Navigation } from 'lucide-react';
+import React, { useState } from 'react';
+import { ArrowLeft, Search, MapPin, Globe, Sun, Moon, Bell, ChevronDown, User, Navigation } from 'lucide-react';
 import { useLanguage } from '../../context/LanguageContext';
 import { useTheme } from '../../context/ThemeContext';
 import { useLocationContext } from '../../context/LocationContext';
@@ -7,7 +7,7 @@ import { LocationModal } from '../common/LocationModal';
 import { NotificationsModal } from '../common/NotificationsModal';
 import { GlobalSearchModal } from './GlobalSearchModal';
 
-export function Header({ onNavigate }) {
+export function Header({ onNavigate, onBack, showBack = false }) {
   const { t, currentLang, setLanguage, languagesList } = useLanguage();
   const { theme, toggleTheme, setTheme } = useTheme();
   const { location, detectLocation, isLocating } = useLocationContext();
@@ -19,6 +19,19 @@ export function Header({ onNavigate }) {
   return (
     <header className="sticky top-0 z-30 bg-[#07090E]/90 backdrop-blur-md border-b border-[#161D2B] px-6 py-3.5 flex items-center justify-between gap-4 select-none">
       {/* Search Bar matching Reference UI with Ctrl + K */}
+      <div className="flex items-center gap-2 flex-1 min-w-0">
+        {showBack && (
+          <button
+            type="button"
+            onClick={onBack}
+            className="p-2 rounded-xl bg-[#0D111A] border border-[#1E2638] text-slate-300 hover:text-cyan-300 hover:border-cyan-500/40 transition-all shrink-0"
+            title="Go back"
+            aria-label="Go back"
+          >
+            <ArrowLeft className="w-4 h-4" />
+          </button>
+        )}
+
       <div className="flex-1 max-w-xl">
         <button
           type="button"
@@ -33,6 +46,8 @@ export function Header({ onNavigate }) {
             Ctrl + K
           </span>
         </button>
+      </div>
+
       </div>
 
       {/* Right Header Actions */}
