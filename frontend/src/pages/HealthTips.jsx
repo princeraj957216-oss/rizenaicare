@@ -23,6 +23,17 @@ export function HealthTips() {
         </div>
       </div>
 
+      <div className="overflow-hidden rounded-3xl border border-[#1E2638] bg-[#0D111A] shadow-xl">
+        <img
+          src="/images/health-tips-banner.jpg"
+          alt="Health tips: hydration, nutritious food, sleep, physical activity and preventive care"
+          className="w-full h-auto object-cover"
+        />
+        <p className="px-5 py-3 text-xs text-slate-400">
+          Small, consistent habits can support a healthier daily routine. Use these tips as general education and consult a healthcare professional for personal advice.
+        </p>
+      </div>
+
       {/* Categories */}
       <div className="flex flex-wrap gap-2">
         {categories.map((cat) => (

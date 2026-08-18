@@ -10,14 +10,14 @@ export function ReportUploadCard({ contextProblem = '', toolName = 'Health Tool'
   const [isAnalyzing, setIsAnalyzing] = useState(false);
   const [reportResult, setReportResult] = useState(null);
   const [isCollapsed, setIsCollapsed] = useState(false);
+  const [uploadError, setUploadError] = useState('');
 
-  const handleFileUpload = async (e) => {
-    e.preventDefault();
-    if (!file) return;
-
+  const analyzeFile = async (uploadedFile) => {
+    if (!uploadedFile) return;
     setIsAnalyzing(true);
+    setUploadError('');
     const formData = new FormData();
-    formData.append('report', file);
+    formData.append('report', uploadedFile);
     if (contextProblem) {
       formData.append('context', contextProblem);
     }
@@ -26,10 +26,15 @@ export function ReportUploadCard({ contextProblem = '', toolName = 'Health Tool'
       const data = await uploadReportAPI(formData);
       setReportResult(data);
     } catch (err) {
-      alert('Failed to analyze document. Please try a different file.');
+      setUploadError(err.message || 'Only valid medical reports are supported.');
     } finally {
       setIsAnalyzing(false);
     }
+  };
+
+  const handleFileUpload = async (e) => {
+    e.preventDefault();
+    await analyzeFile(file);
   };
 
   const handleExportPDF = () => {
@@ -67,12 +72,17 @@ export function ReportUploadCard({ contextProblem = '', toolName = 'Health Tool'
       {/* Upload Form */}
       {!reportResult && (
         <form onSubmit={handleFileUpload} className="space-y-3">
+          {uploadError && <div className="flex items-start gap-2 rounded-xl border border-rose-500/30 bg-rose-500/10 p-3 text-xs text-rose-200"><AlertCircle className="w-4 h-4 shrink-0 text-rose-300" /><span>{uploadError}</span></div>}
           <div className="flex flex-col sm:flex-row items-center gap-3">
             <div className="flex-1 w-full">
               <input
                 type="file"
                 accept=".pdf,.jpg,.jpeg,.png,.webp"
-                onChange={(e) => setFile(e.target.files[0])}
+                onChange={(e) => {
+                  const selectedFile = e.target.files?.[0] || null;
+                  setFile(selectedFile);
+                  if (selectedFile) analyzeFile(selectedFile);
+                }}
                 className="block w-full text-xs text-slate-400 file:mr-3 file:py-2.5 file:px-4 file:rounded-xl file:border-0 file:text-xs file:font-semibold file:bg-cyan-500/20 file:text-cyan-300 hover:file:bg-cyan-500/30 cursor-pointer bg-[#121622] border border-[#1E2638] rounded-xl p-1"
               />
             </div>
@@ -90,7 +100,7 @@ export function ReportUploadCard({ contextProblem = '', toolName = 'Health Tool'
               ) : (
                 <>
                   <Sparkles className="w-3.5 h-3.5" />
-                  <span>Correlate Report with AI</span>
+                  <span>Analyze Uploaded Report</span>
                 </>
               )}
             </button>
@@ -104,7 +114,7 @@ export function ReportUploadCard({ contextProblem = '', toolName = 'Health Tool'
           <div className="flex flex-wrap items-center justify-between gap-2 pb-3 border-b border-[#1E2638]">
             <div className="flex items-center gap-2">
               <FileText className="w-4 h-4 text-cyan-400" />
-              <span className="text-xs font-bold text-white">Extracted Analysis: {reportResult.documentName}</span>
+              <span className="text-xs font-bold text-white">Analysis Result: {reportResult.documentName}</span>
             </div>
 
             <div className="flex items-center gap-2">
@@ -178,11 +188,32 @@ export function ReportUploadCard({ contextProblem = '', toolName = 'Health Tool'
             </div>
           )}
 
+          {reportResult.extractedData?.rawSummary && (
+            <div className="rounded-xl bg-[#0D111A] border border-[#1E2638] p-3 space-y-2">
+              <h4 className="text-[10px] font-bold uppercase tracking-wider text-slate-300">Extracted report details</h4>
+              <p className="whitespace-pre-wrap text-xs leading-relaxed text-slate-400">{reportResult.extractedData.rawSummary}</p>
+            </div>
+          )}
+
+          {reportResult.extractedData?.medicines?.length > 0 && (
+            <div className="rounded-xl bg-[#0D111A] border border-[#1E2638] p-3 space-y-2">
+              <h4 className="text-[10px] font-bold uppercase tracking-wider text-cyan-300">Medicines mentioned in document</h4>
+              <ul className="list-disc pl-4 text-xs text-slate-300 space-y-1">{reportResult.extractedData.medicines.map((medicine, index) => <li key={index}>{medicine}</li>)}</ul>
+            </div>
+          )}
+
+          {reportResult.extractedData?.observations?.length > 0 && (
+            <div className="rounded-xl bg-[#0D111A] border border-[#1E2638] p-3 space-y-2">
+              <h4 className="text-[10px] font-bold uppercase tracking-wider text-purple-300">Observations from document</h4>
+              <ul className="list-disc pl-4 text-xs text-slate-300 space-y-1">{reportResult.extractedData.observations.map((observation, index) => <li key={index}>{observation}</li>)}</ul>
+            </div>
+          )}
+
           {/* AI Clinical Interpretation */}
           {reportResult.aiInterpretation && (
             <div className="space-y-1 text-xs text-slate-300">
               <span className="font-bold text-purple-300 uppercase tracking-wider text-[10px]">
-                AI Correlated Finding
+                AI Analysis Result
               </span>
               <p className="leading-relaxed">{reportResult.aiInterpretation.summary}</p>
             </div>

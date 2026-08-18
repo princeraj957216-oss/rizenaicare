@@ -3,6 +3,7 @@ import { FolderHeart, UploadCloud, FileText, Trash2, Download, Eye, CheckCircle,
 import { uploadReportAPI } from '../services/api';
 import { exportToPDF } from '../services/pdfGenerator';
 import { MedicalDisclaimerBadge } from '../components/common/MedicalDisclaimerBadge';
+import { saveHistory } from '../services/history';
 
 export function HealthRecords() {
   const [records, setRecords] = useState([
@@ -27,13 +28,20 @@ export function HealthRecords() {
   const [selectedFile, setSelectedFile] = useState(null);
   const [isUploading, setIsUploading] = useState(false);
   const [activeAnalysis, setActiveAnalysis] = useState(null);
+  const [uploadError, setUploadError] = useState('');
   const [deleteConfirmId, setDeleteConfirmId] = useState(null);
 
   const handleFileUpload = async (e) => {
     e.preventDefault();
     if (!selectedFile) return;
 
+    if (selectedFile.size > 10 * 1024 * 1024) {
+      setUploadError('This file is larger than 10MB. Please choose a smaller report.');
+      return;
+    }
+
     setIsUploading(true);
+    setUploadError('');
     const formData = new FormData();
     formData.append('report', selectedFile);
 
@@ -51,9 +59,10 @@ export function HealthRecords() {
 
       setRecords(prev => [newRecord, ...prev]);
       setActiveAnalysis(data);
+      saveHistory({ type: 'Report analysis', title: selectedFile.name });
       setSelectedFile(null);
     } catch (err) {
-      alert('Failed to analyze report file.');
+      setUploadError(err.message || 'Unable to analyze this report. Please try again.');
     } finally {
       setIsUploading(false);
     }
@@ -108,6 +117,7 @@ export function HealthRecords() {
               {isUploading ? 'Analyzing Document with AI...' : `Analyze ${selectedFile.name}`}
             </button>
           )}
+          {uploadError && <div className="max-w-xl mx-auto rounded-xl border border-red-500/30 bg-red-500/10 px-3 py-2 text-xs text-red-300" role="alert">{uploadError}</div>}
         </form>
       </div>
 

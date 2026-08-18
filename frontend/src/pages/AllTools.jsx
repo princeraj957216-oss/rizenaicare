@@ -4,14 +4,10 @@ import {
   Bot,
   Stethoscope,
   Pill,
-  UserCheck,
   CalendarCheck,
-  ShoppingBag,
-  FlaskConical,
   FolderHeart,
   Sparkles,
   Apple,
-  Activity,
   AlertTriangle,
   FileSpreadsheet,
   Settings,
@@ -67,16 +63,6 @@ export function AllTools({ onNavigate }) {
       badge: 'New'
     },
     {
-      id: 'findDoctors',
-      title: 'Find Doctors & Specialists',
-      desc: 'Discover verified medical specialists filtered by location and ratings.',
-      category: 'Appointments',
-      icon: UserCheck,
-      color: 'text-cyan-400',
-      bg: 'bg-cyan-500/15',
-      badge: null
-    },
-    {
       id: 'bookAppointment',
       title: 'Book Appointment',
       desc: 'Schedule in-person or video consultations with verified clinic doctors.',
@@ -85,26 +71,6 @@ export function AllTools({ onNavigate }) {
       color: 'text-indigo-400',
       bg: 'bg-indigo-500/15',
       badge: null
-    },
-    {
-      id: 'medicinesPharmacy',
-      title: 'Medicines & Pharmacy',
-      desc: 'Browse genuine OTC remedies, wellness supplements, and order online.',
-      category: 'Pharmacy',
-      icon: ShoppingBag,
-      color: 'text-pink-400',
-      bg: 'bg-pink-500/15',
-      badge: null
-    },
-    {
-      id: 'labTests',
-      title: 'Lab Tests at Home',
-      desc: 'Book full-body checkups and diagnostic panels with free home collection.',
-      category: 'Diagnostics',
-      icon: FlaskConical,
-      color: 'text-emerald-400',
-      bg: 'bg-emerald-500/15',
-      badge: 'Home Visit'
     },
     {
       id: 'healthRecords',
@@ -127,16 +93,6 @@ export function AllTools({ onNavigate }) {
       badge: null
     },
     {
-      id: 'wellnessTracker',
-      title: 'Wellness & Vitality Tracker',
-      desc: 'Interactive 8-glass water logger, step tracker, sleep monitor & BMI calculator.',
-      category: 'Wellness',
-      icon: Activity,
-      color: 'text-cyan-400',
-      bg: 'bg-cyan-500/15',
-      badge: null
-    },
-    {
       id: 'healthTips',
       title: 'Health Tips Library',
       desc: 'Scientifically validated preventive wellness articles and healthy habits.',
@@ -149,7 +105,7 @@ export function AllTools({ onNavigate }) {
     {
       id: 'emergencyHelp',
       title: 'Emergency Help (SOS)',
-      desc: 'Instant emergency hotlines (112, 102), 24/7 ER hospitals & first-aid guides.',
+      desc: 'Emergency ambulance support, 24/7 ER hospitals, and first-aid guides.',
       category: 'Emergency',
       icon: AlertTriangle,
       color: 'text-red-400',

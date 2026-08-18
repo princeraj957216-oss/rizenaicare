@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { MapPin, Crosshair, ChevronDown, CheckCircle2, Star, Navigation, ArrowRight, Heart } from 'lucide-react';
 import { useLocationContext } from '../../context/LocationContext';
 import { useLanguage } from '../../context/LanguageContext';
@@ -6,6 +6,7 @@ import { initialDoctors } from '../../data/mockDoctors';
 import { initialHospitals } from '../../data/mockHospitals';
 import { AppointmentModal } from '../common/AppointmentModal';
 import { LocationModal } from '../common/LocationModal';
+import { searchHospitalsByLocation } from '../../services/api';
 
 export function RightPanel({ onNavigate }) {
   const { location, specialization, setSpecialization, detectLocation, isLocating, specializationsList } = useLocationContext();
@@ -13,20 +14,43 @@ export function RightPanel({ onNavigate }) {
 
   const [selectedDoctorForBooking, setSelectedDoctorForBooking] = useState(null);
   const [isLocationModalOpen, setIsLocationModalOpen] = useState(false);
+  const [nearbyHospitals, setNearbyHospitals] = useState([]);
+  const [isHospitalsLoading, setIsHospitalsLoading] = useState(false);
 
   // Filter doctors & hospitals dynamically based on selected specialization
-  const filteredDoctors = initialDoctors.filter(d => 
-    d.specialization.toLowerCase().includes(specialization.toLowerCase()) ||
-    specialization.toLowerCase().includes(d.specialization.toLowerCase())
-  ).slice(0, 3);
+  const displayDoctors = location ? initialDoctors.filter((doctor) => {
+    const selected = location.toLowerCase();
+    return selected.includes(doctor.city.toLowerCase()) && (doctor.specialization.toLowerCase().includes(specialization.toLowerCase()) || specialization.toLowerCase().includes(doctor.specialization.toLowerCase()));
+  }).slice(0, 3) : [];
+  const appointmentOptions = displayDoctors.length ? displayDoctors : nearbyHospitals.slice(0, 3).map((hospital) => ({
+    id: `facility-${hospital.id}`,
+    name: `${specialization} appointment`,
+    specialization,
+    hospital: hospital.name,
+    availableTime: 'Contact facility for availability',
+    avatar: null,
+    isFacilityOption: true
+  }));
 
-  const displayDoctors = filteredDoctors.length > 0 ? filteredDoctors : initialDoctors.slice(0, 3);
-
-  const filteredHospitals = initialHospitals.filter(h =>
-    h.specializations.some(s => s.toLowerCase().includes(specialization.toLowerCase()))
-  ).slice(0, 3);
-
-  const displayHospitals = filteredHospitals.length > 0 ? filteredHospitals : initialHospitals.slice(0, 3);
+  useEffect(() => {
+    let cancelled = false;
+    async function loadHospitals() {
+      if (!location.trim()) { setNearbyHospitals([]); return; }
+      setIsHospitalsLoading(true);
+      const local = initialHospitals.filter((hospital) => {
+        const selected = location.toLowerCase();
+        return selected.includes(hospital.city.toLowerCase());
+      });
+      try {
+        const remote = await searchHospitalsByLocation(location);
+        if (!cancelled) setNearbyHospitals(remote.length ? remote : local);
+      } catch {
+        if (!cancelled) setNearbyHospitals(local);
+      } finally { if (!cancelled) setIsHospitalsLoading(false); }
+    }
+    loadHospitals();
+    return () => { cancelled = true; };
+  }, [location, specialization]);
 
   return (
     <aside className="w-80 bg-[#07090E] border-l border-[#161D2B] p-4 space-y-4 select-none overflow-y-auto custom-scrollbar h-screen sticky top-0 shrink-0">
@@ -62,7 +86,7 @@ export function RightPanel({ onNavigate }) {
         <div className="relative flex items-center bg-[#121622] border border-[#1E2638] rounded-xl px-3 py-2">
           <Heart className="w-3.5 h-3.5 text-pink-400 mr-2 shrink-0" />
           <div className="flex-1 min-w-0">
-            <p className="text-[9px] text-slate-500 uppercase tracking-wider font-semibold">Specialization</p>
+            <p className="text-[9px] text-slate-500 uppercase tracking-wider font-semibold">{t('rightPanel.specialization', 'Specialization')}</p>
             <select
               value={specialization}
               onChange={(e) => setSpecialization(e.target.value)}
@@ -91,26 +115,22 @@ export function RightPanel({ onNavigate }) {
           </button>
         </div>
         <p className="text-[10px] text-slate-400 mb-3">
-          Based on your location & specialization (<span className="text-cyan-400">{specialization}</span>)
+          {t('rightPanel.basedOn', 'Based on your location & specialization')} (<span className="text-cyan-400">{specialization}</span>)
         </p>
 
         {/* Appointments List */}
         <div className="space-y-2.5">
-          {displayDoctors.map((doc) => (
+          {!appointmentOptions.length && <p className="text-xs text-slate-400 py-3">{location ? t('rightPanel.noAppointments', 'No appointment options found for this location.') : t('rightPanel.chooseLocation', 'Choose a location to find appointment options.')}</p>}
+          {appointmentOptions.map((doc) => (
             <div
               key={doc.id}
               className="flex items-center justify-between bg-[#121622] border border-[#1E2638] hover:border-cyan-500/30 rounded-xl p-2.5 transition-colors"
             >
               <div className="flex items-center gap-2.5 min-w-0">
-                <img
-                  src={doc.avatar}
-                  alt={doc.name}
-                  className="w-9 h-9 rounded-full object-cover border border-cyan-500/40 shrink-0"
-                />
+                {doc.avatar ? <img src={doc.avatar} alt={doc.name} className="w-9 h-9 rounded-full object-cover border border-cyan-500/40 shrink-0" /> : <div className="w-9 h-9 rounded-full bg-cyan-500/10 border border-cyan-500/30 flex items-center justify-center text-cyan-300 text-xs shrink-0">+</div>}
                 <div className="min-w-0">
                   <h4 className="text-xs font-semibold text-slate-100 truncate">{doc.name}</h4>
                   <p className="text-[10px] text-slate-400 truncate">{doc.specialization}</p>
-                  <p className="text-[9px] text-slate-500 truncate">{doc.hospital}</p>
                 </div>
               </div>
 
@@ -118,10 +138,10 @@ export function RightPanel({ onNavigate }) {
                 <div className="text-[10px] font-medium text-slate-300">{doc.availableTime.split(' ')[0]}</div>
                 <div className="text-[9px] text-slate-500 mb-1">{doc.availableTime.split(' ').slice(1).join(' ')}</div>
                 <button
-                  onClick={() => setSelectedDoctorForBooking(doc)}
+                  onClick={() => doc.isFacilityOption ? onNavigate('bookAppointment') : setSelectedDoctorForBooking(doc)}
                   className="px-3 py-1 rounded-lg bg-purple-600/30 hover:bg-purple-600 text-purple-300 hover:text-white border border-purple-500/40 text-[10px] font-semibold transition-all shadow-[0_0_8px_rgba(139,92,246,0.3)]"
                 >
-                  {t('rightPanel.book', 'Book')}
+                  {doc.isFacilityOption ? t('rightPanel.viewOptions', 'View options') : t('rightPanel.book', 'Book')}
                 </button>
               </div>
             </div>
@@ -138,7 +158,7 @@ export function RightPanel({ onNavigate }) {
       {/* 3. Nearby Hospitals Card */}
       <div className="bg-[#0D111A] border border-[#1E2638] rounded-2xl p-4 shadow-sm">
         <div className="flex items-center justify-between mb-1">
-          <h3 className="text-xs font-semibold text-slate-100">{t('rightPanel.nearbyHospitals', 'Nearby Hospitals')}</h3>
+          <h3 className="text-xs font-semibold text-slate-100">{t('rightPanel.nearbyHospitals', 'Nearest Hospitals')}</h3>
           <button
             onClick={() => onNavigate('dashboard')}
             className="text-[11px] font-medium text-purple-400 hover:text-purple-300 hover:underline"
@@ -146,35 +166,33 @@ export function RightPanel({ onNavigate }) {
             {t('rightPanel.viewAll', 'View All')}
           </button>
         </div>
-        <p className="text-[10px] text-slate-400 mb-3">
-          Based on your location & specialization (<span className="text-cyan-400">{specialization}</span>)
+          <p className="text-[10px] text-slate-400 mb-3">
+          {location ? <>Automatically suggested for <span className="text-cyan-400">{location}</span></> : 'Choose a location to find nearby hospitals.'}
         </p>
 
         {/* Hospital List */}
         <div className="space-y-2.5">
-          {displayHospitals.map((hosp) => (
+          {isHospitalsLoading && <p className="text-xs text-cyan-300 py-3">{t('rightPanel.searchingFacilities', 'Searching facilities in')} {location}…</p>}
+          {!isHospitalsLoading && !nearbyHospitals.length && <p className="text-xs text-slate-400 py-3">{t('rightPanel.noHospitals', 'No hospitals found for this selected location.')}</p>}
+          {nearbyHospitals.map((hosp) => (
             <div
               key={hosp.id}
               className="flex items-center justify-between bg-[#121622] border border-[#1E2638] rounded-xl p-2.5 hover:border-purple-500/30 transition-colors"
             >
               <div className="flex items-center gap-2.5 min-w-0">
-                <img
-                  src={hosp.image}
-                  alt={hosp.name}
-                  className="w-10 h-10 rounded-lg object-cover border border-[#252F48] shrink-0"
-                />
+                  {hosp.image ? <img src={hosp.image} alt={hosp.name} className="w-10 h-10 rounded-lg object-cover border border-[#252F48] shrink-0" /> : <div className="w-10 h-10 rounded-lg bg-cyan-500/10 border border-cyan-500/30 flex items-center justify-center text-cyan-300 text-xs">+</div>}
                 <div className="min-w-0">
                   <h4 className="text-xs font-semibold text-slate-100 truncate">{hosp.name}</h4>
                   <p className="text-[10px] text-slate-400 truncate">{hosp.address}</p>
-                  <p className="text-[9px] text-slate-500">{hosp.distanceKm} km away</p>
+                  <p className="text-[9px] text-slate-500">{hosp.distanceKm ? `${hosp.distanceKm} km away` : hosp.source || 'Selected location'}</p>
                 </div>
               </div>
 
               <div className="text-right shrink-0 ml-2">
-                <div className="flex items-center justify-end gap-1 text-[10px] font-semibold text-amber-400 mb-1">
+                {hosp.rating && <div className="flex items-center justify-end gap-1 text-[10px] font-semibold text-amber-400 mb-1">
                   <Star className="w-3 h-3 fill-amber-400 text-amber-400" />
                   <span>{hosp.rating}</span>
-                </div>
+                </div>}
                 <button
                   onClick={() => window.open(`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(hosp.name + ' ' + hosp.address)}`, '_blank')}
                   className="px-2.5 py-1 rounded-lg bg-[#192133] hover:bg-cyan-500/20 text-cyan-300 border border-cyan-500/30 text-[10px] font-medium transition-colors"

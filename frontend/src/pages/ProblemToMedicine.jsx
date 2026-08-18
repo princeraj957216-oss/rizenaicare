@@ -7,6 +7,7 @@ import { exportToPDF } from '../services/pdfGenerator';
 import { ToolLanguageSelector } from '../components/common/ToolLanguageSelector';
 import { MedicalDisclaimerBadge } from '../components/common/MedicalDisclaimerBadge';
 import { ReportUploadCard } from '../components/common/ReportUploadCard';
+import { saveHistory } from '../services/history';
 
 export function ProblemToMedicine({ initialQuery = '' }) {
   const { currentLang, t } = useLanguage();
@@ -16,6 +17,7 @@ export function ProblemToMedicine({ initialQuery = '' }) {
   const [problemInput, setProblemInput] = useState(initialQuery);
   const [medicineData, setMedicineData] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState('');
 
   useEffect(() => {
     if (initialQuery) {
@@ -28,11 +30,13 @@ export function ProblemToMedicine({ initialQuery = '' }) {
     if (!term || !term.trim()) return;
 
     setIsLoading(true);
+    setError('');
     try {
       const result = await getMedicineInfoAPI(term.trim(), toolLang);
       setMedicineData(result);
+      saveHistory({ type: 'Problem analysis', title: term.trim() });
     } catch (e) {
-      alert('Failed to retrieve medicine info. Please try again.');
+      setError('Unable to analyze that problem right now. Please check the text and try again.');
     } finally {
       setIsLoading(false);
     }
@@ -61,12 +65,14 @@ export function ProblemToMedicine({ initialQuery = '' }) {
               <span>{t('nav.problemMedicine', 'Problem → Medicine Information')}</span>
               <span className="px-2 py-0.5 text-[9px] font-bold rounded-full bg-pink-500 text-white uppercase">New</span>
             </h2>
-            <p className="text-xs text-slate-400">Therapeutic classes, active mechanisms & safety precautions</p>
+            <p className="text-xs text-slate-400">{t('problem.subtitle', 'Therapeutic classes, active mechanisms & safety precautions')}</p>
           </div>
         </div>
 
         <ToolLanguageSelector selectedLang={toolLang} onSelectLang={setToolLang} />
       </div>
+
+      {error && <p className="rounded-xl border border-red-500/30 bg-red-500/10 px-3 py-2 text-xs text-red-300" role="alert">{error}</p>}
 
       {/* Safety Notice */}
       <MedicalDisclaimerBadge text="This tool provides general medicine information and does NOT generate prescriptions. Never start, stop, or modify prescription dosages without consulting a licensed physician." />
@@ -75,13 +81,13 @@ export function ProblemToMedicine({ initialQuery = '' }) {
       <div className="bg-[#0D111A] border border-[#1E2638] rounded-3xl p-6 shadow-xl space-y-4">
         <form onSubmit={(e) => { e.preventDefault(); handleFetchInfo(); }} className="space-y-3">
           <label className="block text-xs font-semibold text-slate-300">
-            Enter Health Problem, Symptom, or Condition
+            {t('problem.enter', 'Enter Health Problem, Symptom, or Condition')}
           </label>
           <div className="flex flex-col sm:flex-row gap-2.5">
             <input
               type="text"
               required
-              placeholder="E.g. Headache, Fever, Cough, Acidity, Allergy, Back Pain..."
+              placeholder={t('problem.placeholder', 'E.g. Headache, Fever, Cough, Acidity, Allergy, Back Pain...')}
               value={problemInput}
               onChange={(e) => setProblemInput(e.target.value)}
               className="flex-1 bg-[#121622] border border-[#20283E] rounded-xl px-4 py-2.5 text-xs md:text-sm text-slate-100 placeholder-slate-500 focus:outline-none focus:border-pink-500"
@@ -92,13 +98,13 @@ export function ProblemToMedicine({ initialQuery = '' }) {
               className="px-6 py-2.5 bg-gradient-to-r from-pink-600 to-purple-600 hover:from-pink-500 hover:to-purple-500 disabled:opacity-50 text-white text-xs font-semibold rounded-xl flex items-center justify-center gap-1.5 shadow-[0_0_15px_rgba(236,72,153,0.4)] transition-all shrink-0"
             >
               <Sparkles className="w-3.5 h-3.5" />
-              <span>{isLoading ? 'Retrieving Info...' : 'Get Information'}</span>
+              <span>{isLoading ? t('problem.loading', 'Retrieving Info...') : t('problem.submit', 'Get Information')}</span>
             </button>
           </div>
 
           {/* Quick Problem Chips */}
           <div className="flex flex-wrap items-center gap-2 pt-2 text-xs text-slate-400">
-            <span className="text-[11px] text-slate-500">Quick Select:</span>
+            <span className="text-[11px] text-slate-500">{t('problem.quickSelect', 'Quick Select:')}</span>
             {['Fever', 'Headache', 'Acidity & Gas', 'Dry Cough', 'Muscle Soreness'].map((prob) => (
               <button
                 key={prob}
@@ -160,7 +166,7 @@ export function ProblemToMedicine({ initialQuery = '' }) {
             {medicineData.commonClasses && (
               <div className="space-y-2">
                 <h4 className="text-xs font-bold text-cyan-300 uppercase tracking-wider">
-                  Commonly Utilized Medication Classes
+                  {t('problem.classes', 'Commonly Utilized Medication Classes')}
                 </h4>
                 <div className="grid grid-cols-1 sm:grid-cols-3 gap-2.5">
                   {medicineData.commonClasses.map((cls, idx) => (
@@ -176,7 +182,7 @@ export function ProblemToMedicine({ initialQuery = '' }) {
             {/* General Purpose */}
             {medicineData.purpose && (
               <div className="bg-[#121622] border border-[#1E2638] rounded-2xl p-4 space-y-1">
-                <h4 className="text-xs font-bold text-slate-300 uppercase tracking-wider">General Purpose of Treatment</h4>
+                <h4 className="text-xs font-bold text-slate-300 uppercase tracking-wider">{t('problem.purpose', 'General Purpose of Treatment')}</h4>
                 <p className="text-xs text-slate-300 leading-relaxed">{medicineData.purpose}</p>
               </div>
             )}
@@ -186,7 +192,7 @@ export function ProblemToMedicine({ initialQuery = '' }) {
               <div className="space-y-2">
                 <h4 className="text-xs font-bold text-amber-300 uppercase tracking-wider flex items-center gap-1.5">
                   <AlertCircle className="w-4 h-4 text-amber-400" />
-                  <span>Essential Precautions & Safety Guidelines</span>
+                  <span>{t('problem.precautions', 'Essential Precautions & Safety Guidelines')}</span>
                 </h4>
                 <div className="space-y-2">
                   {medicineData.precautions.map((prec, idx) => (

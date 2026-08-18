@@ -1,4 +1,6 @@
 ﻿import React, { useState } from 'react';
+import { AuthProvider, useAuth } from './context/AuthContext';
+import { Login } from './pages/Login';
 import { ThemeProvider } from './context/ThemeContext';
 import { LanguageProvider } from './context/LanguageContext';
 import { LocationProvider } from './context/LocationContext';
@@ -15,21 +17,20 @@ import { CreateTool } from './pages/CreateTool';
 import { AiHealthAssistant } from './pages/AiHealthAssistant';
 import { SymptomChecker } from './pages/SymptomChecker';
 import { ProblemToMedicine } from './pages/ProblemToMedicine';
-import { FindDoctors } from './pages/FindDoctors';
 import { BookAppointment } from './pages/BookAppointment';
-import { MedicinesPharmacy } from './pages/MedicinesPharmacy';
-import { LabTests } from './pages/LabTests';
 import { HealthRecords } from './pages/HealthRecords';
 import { HealthTips } from './pages/HealthTips';
 import { DietNutrition } from './pages/DietNutrition';
-import { WellnessTracker } from './pages/WellnessTracker';
 import { EmergencyHelp } from './pages/EmergencyHelp';
 import { Reports } from './pages/Reports';
 import { Settings } from './pages/Settings';
 
 function AppContent() {
+  const { isAuthenticated } = useAuth();
   const [activePage, setActivePage] = useState('dashboard');
   const [pageParams, setPageParams] = useState({});
+
+  if (!isAuthenticated) return <Login />;
 
   const handleNavigate = (pageId, params = {}) => {
     setActivePage(pageId);
@@ -51,22 +52,14 @@ function AppContent() {
         return <SymptomChecker />;
       case 'problemMedicine':
         return <ProblemToMedicine initialQuery={pageParams.query || ''} />;
-      case 'findDoctors':
-        return <FindDoctors onNavigate={handleNavigate} />;
       case 'bookAppointment':
         return <BookAppointment />;
-      case 'medicinesPharmacy':
-        return <MedicinesPharmacy />;
-      case 'labTests':
-        return <LabTests />;
       case 'healthRecords':
         return <HealthRecords />;
       case 'healthTips':
         return <HealthTips />;
       case 'dietNutrition':
         return <DietNutrition />;
-      case 'wellnessTracker':
-        return <WellnessTracker />;
       case 'emergencyHelp':
         return <EmergencyHelp />;
       case 'reports':
@@ -106,7 +99,7 @@ function AppContent() {
 
 export default function App() {
   return (
-    <ThemeProvider>
+    <AuthProvider><ThemeProvider>
       <LanguageProvider>
         <LocationProvider>
           <VoiceProvider>
@@ -114,6 +107,6 @@ export default function App() {
           </VoiceProvider>
         </LocationProvider>
       </LanguageProvider>
-    </ThemeProvider>
+    </ThemeProvider></AuthProvider>
   );
 }

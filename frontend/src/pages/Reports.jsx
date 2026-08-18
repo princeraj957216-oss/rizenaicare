@@ -1,6 +1,7 @@
 import React from 'react';
 import { FileSpreadsheet, Download, Printer, Share2, Sparkles, CheckCircle } from 'lucide-react';
 import { exportToPDF } from '../services/pdfGenerator';
+import { ReportUploadCard } from '../components/common/ReportUploadCard';
 
 export function Reports() {
   const reportsData = [
@@ -28,6 +29,8 @@ export function Reports() {
           <p className="text-xs text-slate-400">Download, print, or share your consolidated health summaries</p>
         </div>
       </div>
+
+      <ReportUploadCard toolName="Clinical Health Report" />
 
       <div className="space-y-4">
         {reportsData.map(rep => (

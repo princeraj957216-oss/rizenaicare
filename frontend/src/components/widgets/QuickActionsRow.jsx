@@ -1,5 +1,5 @@
 import React from 'react';
-import { UploadCloud, BellRing, ShoppingBag, MapPinned, ArrowRight } from 'lucide-react';
+import { UploadCloud, BellRing, ArrowRight } from 'lucide-react';
 import { useLanguage } from '../../context/LanguageContext';
 
 export function QuickActionsRow({ onNavigate }) {
@@ -22,26 +22,8 @@ export function QuickActionsRow({ onNavigate }) {
       icon: BellRing,
       color: 'text-amber-400',
       bgColor: 'bg-amber-500/15',
-      target: 'wellnessTracker'
+      target: 'healthTips'
     },
-    {
-      id: 'orderMedicines',
-      title: t('quickActions.orderMedicines', 'Order Medicines'),
-      desc: t('quickActions.orderMedicinesDesc', 'Fast delivery'),
-      icon: ShoppingBag,
-      color: 'text-pink-400',
-      bgColor: 'bg-pink-500/15',
-      target: 'medicinesPharmacy'
-    },
-    {
-      id: 'trackOrder',
-      title: t('quickActions.trackOrder', 'Track Order'),
-      desc: t('quickActions.trackOrderDesc', 'Track your orders'),
-      icon: MapPinned,
-      color: 'text-purple-400',
-      bgColor: 'bg-purple-500/15',
-      target: 'medicinesPharmacy'
-    }
   ];
 
   return (

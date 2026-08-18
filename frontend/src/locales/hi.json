@@ -1,19 +1,20 @@
 {
   "brand": "RIZEN CARE",
   "subtitle": "एआई स्वास्थ्य सहायक",
+  "common": { "all": "सभी", "new": "नया" },
   "nav": {
     "dashboard": "डैशबोर्ड",
+    "allTools": "सभी एआई उपकरण",
+    "createTool": "टूल बनाएं",
     "aiHealthAssistant": "एआई स्वास्थ्य सहायक",
     "symptomChecker": "लक्षण जांच (Symptom Checker)",
     "problemMedicine": "समस्या → दवा जानकारी",
     "findDoctors": "डॉक्टर खोजें",
     "bookAppointment": "अपॉइंटमेंट बुक करें",
-    "medicinesPharmacy": "दवाइयां और फार्मेसी",
     "labTests": "लैब टेस्ट",
     "healthRecords": "स्वास्थ्य रिकॉर्ड",
     "healthTips": "स्वास्थ्य सुझाव",
     "dietNutrition": "आहार और पोषण",
-    "wellnessTracker": "वेलनेस ट्रैकर",
     "emergencyHelp": "आपातकालीन सहायता",
     "reports": "रिपोर्ट्स",
     "settings": "सेटिंग्स"
@@ -21,7 +22,10 @@
   "header": {
     "searchPlaceholder": "लक्षण, दवाइयां, डॉक्टर, अस्पताल खोजें...",
     "useMyLocation": "मेरे स्थान का उपयोग करें",
-    "selectCity": "शहर / पिन कोड चुनें"
+    "selectCity": "शहर / पिन कोड चुनें",
+    "changeLocation": "स्थान बदलने या पिन दर्ज करने के लिए क्लिक करें",
+    "profile": "सेटिंग्स और प्रोफ़ाइल",
+    "signOut": "साइन आउट"
   },
   "hero": {
     "greeting": "नमस्ते! 👋",
@@ -51,6 +55,16 @@
     "labTestsDesc": "घर बैठे टेस्ट बुक करें",
     "healthRecords": "स्वास्थ्य रिकॉर्ड",
     "healthRecordsDesc": "अपने मेडिकल रिकॉर्ड देखें"
+    ,"bookAppointment": "अपॉइंटमेंट बुक करें",
+    "bookAppointmentDesc": "नजदीकी स्वास्थ्य सेवाएं खोजें",
+    "dietNutrition": "आहार और पोषण",
+    "dietNutritionDesc": "संतुलित भोजन योजना बनाएं",
+    "reports": "रिपोर्ट्स",
+    "reportsDesc": "मेडिकल रिपोर्ट अपलोड और देखें",
+    "emergencyHelp": "आपातकालीन सहायता",
+    "emergencyHelpDesc": "तत्काल स्थानीय सहायता खोजें",
+    "createTool": "टूल बनाएं",
+    "createToolDesc": "कस्टम स्वास्थ्य टूल बनाएं"
   },
   "problemBanner": {
     "badge": "नया",
@@ -63,6 +77,17 @@
       "notPrescription": "यह कोई नुस्खा नहीं है",
       "consult": "उचित जांच के लिए डॉक्टर से मिलें"
     }
+  },
+  "problem": {
+    "subtitle": "चिकित्सीय वर्ग, सक्रिय प्रभाव और सुरक्षा सावधानियां",
+    "enter": "स्वास्थ्य समस्या, लक्षण या स्थिति दर्ज करें",
+    "placeholder": "उदा. सिरदर्द, बुखार, खांसी, एसिडिटी, एलर्जी, कमर दर्द...",
+    "loading": "जानकारी प्राप्त हो रही है...",
+    "submit": "जानकारी प्राप्त करें",
+    "quickSelect": "त्वरित चयन:",
+    "classes": "आमतौर पर उपयोग किए जाने वाले दवा वर्ग",
+    "purpose": "उपचार का सामान्य उद्देश्य",
+    "precautions": "आवश्यक सावधानियां और सुरक्षा दिशानिर्देश"
   },
   "metrics": {
     "steps": "आज के कदम",
@@ -106,6 +131,11 @@
     "nearbyHospitals": "निकटतम अस्पताल",
     "directions": "दिशा-निर्देश",
     "seeMore": "आस-पास और अस्पताल देखें"
+    ,"noAppointments": "इस स्थान के लिए कोई अपॉइंटमेंट विकल्प नहीं मिला।",
+    "chooseLocation": "अपॉइंटमेंट विकल्प खोजने के लिए स्थान चुनें।",
+    "viewOptions": "विकल्प देखें",
+    "searchingFacilities": "यहां सुविधाएं खोजी जा रही हैं",
+    "noHospitals": "इस चुने हुए स्थान के लिए कोई अस्पताल नहीं मिला।"
   },
   "healthScore": {
     "title": "स्वास्थ्य स्कोर",

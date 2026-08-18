@@ -1,11 +1,5 @@
 export const emergencyHelplines = [
   {
-    name: 'National Emergency Helpline (All-in-One)',
-    number: '112',
-    type: 'SOS Universal',
-    desc: '24/7 Police, Fire, and Ambulance response across India.'
-  },
-  {
     name: 'Ambulance Emergency Service',
     number: '102 / 108',
     type: 'Medical Emergency',
@@ -37,7 +31,7 @@ export const firstAidGuides = [
     title: 'Adult CPR (Cardiopulmonary Resuscitation)',
     steps: [
       'Check responsiveness: Shake gently and shout "Are you okay?".',
-      'Call emergency 112 immediately and request an AED.',
+      'Call your local emergency medical service immediately and request an AED.',
       'Place hands in the center of the chest (interlocked fingers).',
       'Push hard and fast: 100-120 compressions per minute (to the beat of "Stayin Alive"), allowing chest to fully recoil.',
       'Continue until professional medical help takes over.'
