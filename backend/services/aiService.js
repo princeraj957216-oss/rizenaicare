@@ -4,6 +4,10 @@ import { GroqProvider } from '../providers/groqProvider.js';
 import { FallbackKnowledgeEngine } from '../providers/fallbackKnowledgeEngine.js';
 
 export class AIService {
+  static async extractMedicalTextFromImage(filePath, mimeType, filename = '') {
+    return GeminiProvider.extractMedicalTextFromImage(filePath, mimeType, filename);
+  }
+
   static getSystemPrompt(language = 'en', task = 'general') {
     const langNames = {
       en: 'English',

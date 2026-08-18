@@ -1,13 +1,15 @@
-import React from 'react';
-import { Settings as SettingsIcon, Globe, Sun, Moon, Volume2, ShieldCheck, Trash2, Sliders } from 'lucide-react';
+import React, { useState } from 'react';
+import { Settings as SettingsIcon, Globe, Sun, ShieldCheck, Trash2, History, X } from 'lucide-react';
 import { useLanguage } from '../context/LanguageContext';
 import { useTheme } from '../context/ThemeContext';
 import { useLocationContext } from '../context/LocationContext';
+import { clearHistory, deleteHistoryItem, readHistory } from '../services/history';
 
 export function Settings() {
   const { currentLang, setLanguage, languagesList } = useLanguage();
   const { theme, setTheme } = useTheme();
   const { location } = useLocationContext();
+  const [history, setHistory] = useState(() => readHistory());
 
   const handleClearData = () => {
     if (confirm('Are you sure you want to clear all locally cached health sessions, preferences, and offline data?')) {
@@ -15,6 +17,11 @@ export function Settings() {
       alert('Local application data has been safely cleared.');
       window.location.reload();
     }
+  };
+
+  const handleDeleteHistory = (id) => setHistory(deleteHistoryItem(id));
+  const handleClearHistory = () => {
+    if (confirm('Delete all saved activity history?')) { clearHistory(); setHistory([]); }
   };
 
   return (
@@ -99,6 +106,14 @@ export function Settings() {
             <span>Clear Local Data</span>
           </button>
         </div>
+      </div>
+
+      <div className="bg-[#0D111A] border border-[#1E2638] rounded-3xl p-6 space-y-4">
+        <div className="flex items-center justify-between gap-3">
+          <div className="flex items-center gap-3"><History className="w-5 h-5 text-cyan-400" /><div><h4 className="text-xs font-bold text-white">Saved Activity History</h4><p className="text-[11px] text-slate-400">Review and remove your saved health analysis activity.</p></div></div>
+          {history.length > 0 && <button onClick={handleClearHistory} className="text-[11px] font-semibold text-red-300 hover:text-red-200">Delete all</button>}
+        </div>
+        {!history.length ? <p className="rounded-xl bg-[#121622] px-3 py-4 text-xs text-slate-500">No saved history yet. Your problem analyses and report uploads will appear here.</p> : <div className="space-y-2">{history.map((entry) => <div key={entry.id} className="flex items-center justify-between gap-3 rounded-xl bg-[#121622] border border-[#1E2638] px-3 py-2.5"><div className="min-w-0"><p className="text-xs font-semibold text-slate-200 truncate">{entry.title}</p><p className="text-[10px] text-slate-500">{entry.type} · {new Date(entry.createdAt).toLocaleString()}</p></div><button onClick={() => handleDeleteHistory(entry.id)} className="p-1.5 text-slate-500 hover:text-red-300" title="Delete history item"><X className="w-4 h-4" /></button></div>)}</div>}
       </div>
     </div>
   );

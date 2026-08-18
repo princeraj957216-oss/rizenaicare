@@ -5,17 +5,20 @@ import {
   Stethoscope,
   Pill,
   Bot,
-  UserCheck,
-  FlaskConical,
   FolderHeart,
+  CalendarCheck,
+  Apple,
+  FileText,
+  Siren,
+  Wrench,
   ChevronRight,
+  ChevronLeft,
   ArrowRight
 } from 'lucide-react';
 import { useLanguage } from '../context/LanguageContext';
 import { useVoice } from '../context/VoiceContext';
 import { HologramAnatomy } from '../components/common/HologramAnatomy';
 import { ProblemMedicineBanner } from '../components/widgets/ProblemMedicineBanner';
-import { WellnessMetricsRow } from '../components/widgets/WellnessMetricsRow';
 import { QuickActionsRow } from '../components/widgets/QuickActionsRow';
 import { TrustBadgesRow } from '../components/widgets/TrustBadgesRow';
 import { AllToolsModal } from '../components/common/AllToolsModal';
@@ -25,6 +28,7 @@ export function Dashboard({ onNavigate }) {
   const { isListening, startListening, stopListening } = useVoice();
   const [heroPrompt, setHeroPrompt] = useState('');
   const [isAllToolsOpen, setIsAllToolsOpen] = useState(false);
+  const [toolPage, setToolPage] = useState(0);
 
   const handleHeroSubmit = (e) => {
     e.preventDefault();
@@ -89,26 +93,6 @@ export function Dashboard({ onNavigate }) {
       target: 'aiHealthAssistant'
     },
     {
-      id: 'findDoctors',
-      title: t('tools.findDoctors', 'Find Doctors'),
-      desc: t('tools.findDoctorsDesc', 'Find specialists near you'),
-      icon: UserCheck,
-      iconColor: 'text-cyan-400',
-      iconBg: 'bg-cyan-500/15',
-      badge: null,
-      target: 'findDoctors'
-    },
-    {
-      id: 'labTests',
-      title: t('tools.labTests', 'Lab Tests at Home'),
-      desc: t('tools.labTestsDesc', 'Book tests at home'),
-      icon: FlaskConical,
-      iconColor: 'text-emerald-400',
-      iconBg: 'bg-emerald-500/15',
-      badge: null,
-      target: 'labTests'
-    },
-    {
       id: 'healthRecords',
       title: t('tools.healthRecords', 'Health Records'),
       desc: t('tools.healthRecordsDesc', 'Access your medical records'),
@@ -117,8 +101,63 @@ export function Dashboard({ onNavigate }) {
       iconBg: 'bg-indigo-500/15',
       badge: null,
       target: 'healthRecords'
+    },
+    {
+      id: 'bookAppointment',
+      title: t('tools.bookAppointment', 'Book Appointment'),
+      desc: t('tools.bookAppointmentDesc', 'Find nearby care options'),
+      icon: CalendarCheck,
+      iconColor: 'text-cyan-400',
+      iconBg: 'bg-cyan-500/15',
+      badge: null,
+      target: 'bookAppointment'
+    },
+    {
+      id: 'dietNutrition',
+      title: t('tools.dietNutrition', 'Diet & Nutrition'),
+      desc: t('tools.dietNutritionDesc', 'Build a balanced meal plan'),
+      icon: Apple,
+      iconColor: 'text-emerald-400',
+      iconBg: 'bg-emerald-500/15',
+      badge: null,
+      target: 'dietNutrition'
+    },
+    {
+      id: 'reports',
+      title: t('tools.reports', 'Reports'),
+      desc: t('tools.reportsDesc', 'Upload and review medical reports'),
+      icon: FileText,
+      iconColor: 'text-violet-400',
+      iconBg: 'bg-violet-500/15',
+      badge: null,
+      target: 'reports'
+    },
+    {
+      id: 'emergencyHelp',
+      title: t('tools.emergencyHelp', 'Emergency Help'),
+      desc: t('tools.emergencyHelpDesc', 'Find urgent local support'),
+      icon: Siren,
+      iconColor: 'text-red-400',
+      iconBg: 'bg-red-500/15',
+      badge: null,
+      target: 'emergencyHelp'
+    },
+    {
+      id: 'createTool',
+      title: t('tools.createTool', 'Create a Tool'),
+      desc: t('tools.createToolDesc', 'Build a custom health tool'),
+      icon: Wrench,
+      iconColor: 'text-amber-400',
+      iconBg: 'bg-amber-500/15',
+      badge: 'New',
+      target: 'createTool'
     }
   ];
+  const toolsPerPage = 4;
+  const toolPageCount = Math.ceil(toolCards.length / toolsPerPage);
+  const visibleTools = toolCards.slice(toolPage * toolsPerPage, (toolPage + 1) * toolsPerPage);
+  const previousToolPage = () => setToolPage((page) => (page - 1 + toolPageCount) % toolPageCount);
+  const nextToolPage = () => setToolPage((page) => (page + 1) % toolPageCount);
 
   return (
     <div className="space-y-6 pb-12">
@@ -243,9 +282,12 @@ export function Dashboard({ onNavigate }) {
           </button>
         </div>
 
-        {/* 6 Interactive Tool Cards */}
-        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3.5">
-          {toolCards.map((tool) => {
+        {/* Four-card carousel: arrows move one page, right-click advances. */}
+        <div
+          className="grid grid-cols-2 sm:grid-cols-4 gap-3.5"
+          onContextMenu={(event) => { event.preventDefault(); nextToolPage(); }}
+        >
+          {visibleTools.map((tool) => {
             const Icon = tool.icon;
             return (
               <button
@@ -275,11 +317,17 @@ export function Dashboard({ onNavigate }) {
           })}
         </div>
 
-        {/* Pagination Dots indicator */}
-        <div className="flex justify-center items-center gap-1.5 pt-1 cursor-pointer" onClick={() => setIsAllToolsOpen(true)}>
-          <span className="w-2 h-2 rounded-full bg-cyan-400 shadow-[0_0_6px_rgba(0,229,255,0.8)]" />
-          <span className="w-1.5 h-1.5 rounded-full bg-slate-700 hover:bg-slate-500" />
-          <span className="w-1.5 h-1.5 rounded-full bg-slate-700 hover:bg-slate-500" />
+        {/* Previous/next controls. Left click goes backward; right click goes forward. */}
+        <div className="flex justify-center items-center gap-3 pt-1">
+          <button type="button" onClick={previousToolPage} className="p-1.5 rounded-full bg-[#121622] border border-[#1E2638] text-slate-300 hover:text-cyan-300 hover:border-cyan-500/40 transition-colors" aria-label="Previous tools">
+            <ChevronLeft className="w-3.5 h-3.5" />
+          </button>
+          <div className="flex items-center gap-1.5" aria-label={`Tool page ${toolPage + 1} of ${toolPageCount}`}>
+            {Array.from({ length: toolPageCount }).map((_, index) => <button key={index} type="button" onClick={() => setToolPage(index)} aria-label={`Show tool page ${index + 1}`} className={`rounded-full transition-all ${index === toolPage ? 'w-2 h-2 bg-cyan-400 shadow-[0_0_6px_rgba(0,229,255,0.8)]' : 'w-1.5 h-1.5 bg-slate-700 hover:bg-slate-500'}`} />)}
+          </div>
+          <button type="button" onClick={nextToolPage} onContextMenu={(event) => { event.preventDefault(); nextToolPage(); }} className="p-1.5 rounded-full bg-[#121622] border border-[#1E2638] text-slate-300 hover:text-cyan-300 hover:border-cyan-500/40 transition-colors" aria-label="Next tools">
+            <ChevronRight className="w-3.5 h-3.5" />
+          </button>
         </div>
       </section>
 
@@ -288,17 +336,12 @@ export function Dashboard({ onNavigate }) {
         <ProblemMedicineBanner onNavigate={onNavigate} />
       </section>
 
-      {/* 4. Quick Stats / Wellness Metrics (4 cards row) */}
-      <section>
-        <WellnessMetricsRow onNavigate={onNavigate} />
-      </section>
-
-      {/* 5. Quick Actions Row */}
+      {/* 4. Quick Actions Row */}
       <section>
         <QuickActionsRow onNavigate={onNavigate} />
       </section>
 
-      {/* 6. Trust & Security Badges Row */}
+      {/* 5. Trust & Security Badges Row */}
       <section>
         <TrustBadgesRow />
       </section>

@@ -185,9 +185,52 @@ const mockHospitalsList = [
   }
 ];
 
+const locationHospitalFallbacks = {
+  patna: [
+    { id: 'patna-hosp-1', name: 'R.P. Golwara Memorial Hospital', address: 'Guru Govind Path, Patna, Bihar, India', city: 'Patna', specializations: ['General Physician', 'Neurologist', 'Cardiologist'], source: 'Rizen Care directory' },
+    { id: 'patna-hosp-2', name: 'Arvind Hospital', address: 'Khazanchi Road, Patna, Bihar, India', city: 'Patna', specializations: ['General Physician', 'Dermatologist', 'Pediatrician'], source: 'Rizen Care directory' },
+    { id: 'patna-hosp-3', name: 'Government Hospital', address: 'Dhanpura, Patna, Bihar, India', city: 'Patna', specializations: ['General Physician', 'Orthopedics', 'Gynecologist'], source: 'Rizen Care directory' }
+  ]
+};
+
 let appointmentsDatabase = [];
 
 export class MedicalController {
+  static async searchHospitals(req, res) {
+    const location = String(req.query.location || '').trim();
+    const specialization = String(req.query.specialization || '').trim();
+    if (!location) return res.json({ success: true, data: [] });
+
+    const query = [specialization, 'hospital', location, 'India'].filter(Boolean).join(', ');
+    const params = new URLSearchParams({ format: 'jsonv2', q: query, limit: '8', addressdetails: '1', countrycodes: 'in' });
+    const response = await fetch(`https://nominatim.openstreetmap.org/search?${params}`, {
+      headers: {
+        Accept: 'application/json',
+        'User-Agent': 'RizenCare/1.0 (healthcare-demo)'
+      }
+    });
+    if (!response.ok) throw new Error(`Hospital search provider returned ${response.status}`);
+    const places = await response.json();
+    let hospitals = places.filter((place) => place.address?.country_code?.toLowerCase() === 'in').map((place, index) => ({
+      id: `osm-${place.place_id || index}`,
+      name: place.display_name?.split(',')[0] || 'Medical facility',
+      address: place.display_name || location,
+      city: place.address?.city || place.address?.town || place.address?.state || location,
+      distanceKm: null,
+      rating: null,
+      specializations: specialization ? [specialization] : [],
+      open24x7: false,
+      emergencyPhone: '',
+      image: null,
+      source: 'OpenStreetMap'
+    }));
+    if (!hospitals.length) {
+      const key = Object.keys(locationHospitalFallbacks).find((city) => location.toLowerCase().includes(city));
+      hospitals = (locationHospitalFallbacks[key] || []).filter((hospital) => !specialization || hospital.specializations.some((item) => item.toLowerCase().includes(specialization.toLowerCase()) || specialization.toLowerCase().includes(item.toLowerCase())));
+    }
+    res.json({ success: true, data: hospitals, count: hospitals.length });
+  }
+
   static getDoctors(req, res) {
     const { specialization, location, city } = req.query;
     let filtered = [...mockDoctorsList];

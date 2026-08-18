@@ -116,6 +116,7 @@ Provide structured educational guidance:
         data: result
       });
     } catch (err) {
+      if (err.statusCode === 422) return res.status(422).json({ success: false, error: err.message });
       next(err);
     }
   }

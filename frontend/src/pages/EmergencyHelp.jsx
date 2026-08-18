@@ -14,7 +14,7 @@ export function EmergencyHelp() {
           </div>
           <div>
             <h2 className="text-lg md:text-xl font-extrabold text-white">Emergency Healthcare Assistance (SOS)</h2>
-            <p className="text-xs text-red-200">If you or someone nearby is experiencing a life-threatening crisis, call 112 immediately.</p>
+            <p className="text-xs text-red-200">If you or someone nearby is experiencing a life-threatening crisis, contact your local emergency medical service immediately.</p>
           </div>
         </div>
       </div>

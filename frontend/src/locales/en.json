@@ -1,19 +1,20 @@
 {
   "brand": "RIZEN CARE",
   "subtitle": "AI HEALTH ASSISTANT",
+  "common": { "all": "All", "new": "New" },
   "nav": {
     "dashboard": "Dashboard",
+    "allTools": "All AI Tools",
+    "createTool": "Create a Tool",
     "aiHealthAssistant": "AI Health Assistant",
     "symptomChecker": "Symptom Checker",
     "problemMedicine": "Problem → Medicine",
     "findDoctors": "Find Doctors",
     "bookAppointment": "Book Appointment",
-    "medicinesPharmacy": "Medicines & Pharmacy",
     "labTests": "Lab Tests",
     "healthRecords": "Health Records",
     "healthTips": "Health Tips",
     "dietNutrition": "Diet & Nutrition",
-    "wellnessTracker": "Wellness Tracker",
     "emergencyHelp": "Emergency Help",
     "reports": "Reports",
     "settings": "Settings"
@@ -21,7 +22,10 @@
   "header": {
     "searchPlaceholder": "Search symptoms, medicines, doctors, hospitals...",
     "useMyLocation": "Use my location",
-    "selectCity": "Select city / PIN"
+    "selectCity": "Select city / PIN",
+    "changeLocation": "Click to change location or enter PIN",
+    "profile": "Settings & Profile",
+    "signOut": "Sign out"
   },
   "hero": {
     "greeting": "Hello! 👋",
@@ -51,6 +55,16 @@
     "labTestsDesc": "Book tests at home",
     "healthRecords": "Health Records",
     "healthRecordsDesc": "Access your medical records"
+    ,"bookAppointment": "Book Appointment",
+    "bookAppointmentDesc": "Find nearby care options",
+    "dietNutrition": "Diet & Nutrition",
+    "dietNutritionDesc": "Build a balanced meal plan",
+    "reports": "Reports",
+    "reportsDesc": "Upload and review medical reports",
+    "emergencyHelp": "Emergency Help",
+    "emergencyHelpDesc": "Find urgent local support",
+    "createTool": "Create a Tool",
+    "createToolDesc": "Build a custom health tool"
   },
   "problemBanner": {
     "badge": "New",
@@ -63,6 +77,17 @@
       "notPrescription": "Not a prescription",
       "consult": "Consult doctor for proper diagnosis"
     }
+  },
+  "problem": {
+    "subtitle": "Therapeutic classes, active mechanisms & safety precautions",
+    "enter": "Enter Health Problem, Symptom, or Condition",
+    "placeholder": "E.g. Headache, Fever, Cough, Acidity, Allergy, Back Pain...",
+    "loading": "Retrieving Info...",
+    "submit": "Get Information",
+    "quickSelect": "Quick Select:",
+    "classes": "Commonly Utilized Medication Classes",
+    "purpose": "General Purpose of Treatment",
+    "precautions": "Essential Precautions & Safety Guidelines"
   },
   "metrics": {
     "steps": "Steps Today",
@@ -106,6 +131,11 @@
     "nearbyHospitals": "Nearby Hospitals",
     "directions": "Directions",
     "seeMore": "See more hospitals near you"
+    ,"noAppointments": "No appointment options found for this location.",
+    "chooseLocation": "Choose a location to find appointment options.",
+    "viewOptions": "View options",
+    "searchingFacilities": "Searching facilities in",
+    "noHospitals": "No hospitals found for this selected location."
   },
   "healthScore": {
     "title": "Health Score",

@@ -42,7 +42,8 @@ const LocationContext = createContext();
 
 export function LocationProvider({ children }) {
   const [location, setLocationState] = useState(() => {
-    return localStorage.getItem('rizen_location') || 'Prayagraj, Uttar Pradesh';
+    const saved = localStorage.getItem('rizen_location');
+    return saved && saved !== 'Prayagraj, Uttar Pradesh' ? saved : '';
   });
 
   const [specialization, setSpecializationState] = useState(() => {
@@ -51,6 +52,18 @@ export function LocationProvider({ children }) {
 
   const [isLocating, setIsLocating] = useState(false);
   const [locationError, setLocationError] = useState(null);
+
+  const gpsLocationLabel = () => {
+    const lang = localStorage.getItem('rizen_lang') || 'en';
+    const labels = {
+      hi: 'वर्तमान स्थान (GPS सक्रिय)',
+      bn: 'বর্তমান অবস্থান (GPS সক্রিয়)',
+      ta: 'தற்போதைய இருப்பிடம் (GPS செயல்பாட்டில்)',
+      te: 'ప్రస్తుత స్థానం (GPS యాక్టివ్)',
+      mr: 'सध्याचे स्थान (GPS सक्रिय)'
+    };
+    return labels[lang] || 'Current Location (GPS Active)';
+  };
 
   const setLocation = (newLoc) => {
     if (!newLoc || !newLoc.trim()) return;
@@ -80,7 +93,7 @@ export function LocationProvider({ children }) {
           const lat = pos.coords.latitude;
           const lon = pos.coords.longitude;
           
-          let resolvedLocation = `${lat.toFixed(2)}°N, ${lon.toFixed(2)}°E (Live GPS)`;
+          let resolvedLocation = gpsLocationLabel();
           
           try {
             const controller = new AbortController();
@@ -97,13 +110,13 @@ export function LocationProvider({ children }) {
             }
           } catch (fetchErr) {
             // If reverse geocode times out or is blocked, use live GPS tag
-            resolvedLocation = `Live Location (${lat.toFixed(2)}°N, ${lon.toFixed(2)}°E)`;
+            resolvedLocation = gpsLocationLabel();
           }
 
           setLocation(resolvedLocation);
           if (onSuccess) onSuccess(resolvedLocation);
         } catch (e) {
-          setLocation('Current Location (GPS Active)');
+          setLocation(gpsLocationLabel());
         } finally {
           setIsLocating(false);
         }

@@ -1,11 +1,11 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Search, X, Stethoscope, Pill, UserCheck, Building2, ChevronRight, Activity } from 'lucide-react';
 import { initialDoctors } from '../../data/mockDoctors';
-import { initialMedicines } from '../../data/mockMedicines';
 import { initialHospitals } from '../../data/mockHospitals';
 
 export function GlobalSearchModal({ isOpen, onClose, onNavigate }) {
   const [query, setQuery] = useState('');
+  const searchPanelRef = useRef(null);
 
   useEffect(() => {
     const handleKeyDown = (e) => {
@@ -18,12 +18,27 @@ export function GlobalSearchModal({ isOpen, onClose, onNavigate }) {
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, [onClose]);
 
+  useEffect(() => {
+    if (!isOpen) return undefined;
+    const handleOutsidePointer = (event) => {
+      if (searchPanelRef.current && !searchPanelRef.current.contains(event.target)) onClose();
+    };
+    const handleOutsideClick = (event) => {
+      if (searchPanelRef.current && !searchPanelRef.current.contains(event.target)) onClose();
+    };
+    document.addEventListener('pointerdown', handleOutsidePointer);
+    document.addEventListener('click', handleOutsideClick);
+    return () => {
+      document.removeEventListener('pointerdown', handleOutsidePointer);
+      document.removeEventListener('click', handleOutsideClick);
+    };
+  }, [isOpen, onClose]);
+
   if (!isOpen) return null;
 
   const q = query.toLowerCase().trim();
 
   const matchedDoctors = q ? initialDoctors.filter(d => d.name.toLowerCase().includes(q) || d.specialization.toLowerCase().includes(q)) : [];
-  const matchedMedicines = q ? initialMedicines.filter(m => m.name.toLowerCase().includes(q) || m.category.toLowerCase().includes(q)) : [];
   const matchedHospitals = q ? initialHospitals.filter(h => h.name.toLowerCase().includes(q) || h.address.toLowerCase().includes(q)) : [];
 
   const handleItemClick = (pageId) => {
@@ -32,8 +47,8 @@ export function GlobalSearchModal({ isOpen, onClose, onNavigate }) {
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-start justify-center pt-20 p-4 bg-black/80 backdrop-blur-md animate-fade-in">
-      <div className="relative w-full max-w-2xl bg-[#0D111A] border border-[#1E2638] rounded-2xl shadow-[0_10px_50px_rgba(0,0,0,0.9)] overflow-hidden">
+    <div className="fixed inset-0 z-50 flex items-start justify-center pt-20 p-4 bg-black/80 backdrop-blur-md animate-fade-in" onClick={onClose} onMouseDown={onClose} onTouchStart={onClose}>
+      <div ref={searchPanelRef} className="relative w-full max-w-2xl bg-[#0D111A] border border-[#1E2638] rounded-2xl shadow-[0_10px_50px_rgba(0,0,0,0.9)] overflow-hidden" onClick={(event) => event.stopPropagation()} onMouseDown={(event) => event.stopPropagation()} onTouchStart={(event) => event.stopPropagation()}>
         {/* Search Input Bar */}
         <div className="flex items-center px-4 py-3.5 border-b border-[#1E2638]">
           <Search className="w-5 h-5 text-cyan-400 mr-3" />
@@ -67,8 +82,8 @@ export function GlobalSearchModal({ isOpen, onClose, onNavigate }) {
                 <button onClick={() => handleItemClick('problemMedicine')} className="px-3 py-1.5 rounded-lg bg-[#141A28] border border-[#1E2638] text-xs text-purple-300 hover:border-purple-500">
                   💊 Problem → Medicine
                 </button>
-                <button onClick={() => handleItemClick('findDoctors')} className="px-3 py-1.5 rounded-lg bg-[#141A28] border border-[#1E2638] text-xs text-blue-300 hover:border-blue-500">
-                  👨‍⚕️ Find Doctors
+                <button onClick={() => handleItemClick('bookAppointment')} className="px-3 py-1.5 rounded-lg bg-[#141A28] border border-[#1E2638] text-xs text-blue-300 hover:border-blue-500">
+                  📅 Book Appointment
                 </button>
                 <button onClick={() => handleItemClick('emergencyHelp')} className="px-3 py-1.5 rounded-lg bg-[#141A28] border border-[#1E2638] text-xs text-red-300 hover:border-red-500">
                   🚨 Emergency SOS
@@ -85,7 +100,7 @@ export function GlobalSearchModal({ isOpen, onClose, onNavigate }) {
                   {matchedDoctors.map(doc => (
                     <button
                       key={doc.id}
-                      onClick={() => handleItemClick('findDoctors')}
+                      onClick={() => handleItemClick('bookAppointment')}
                       className="w-full flex items-center justify-between p-2.5 rounded-xl hover:bg-[#141A28] text-left transition-colors"
                     >
                       <div className="flex items-center gap-3">
@@ -101,29 +116,6 @@ export function GlobalSearchModal({ isOpen, onClose, onNavigate }) {
                 </div>
               )}
 
-              {matchedMedicines.length > 0 && (
-                <div>
-                  <h4 className="text-[11px] font-semibold text-slate-400 uppercase tracking-wider px-2 mb-1.5">
-                    Medicines & Pharmacy
-                  </h4>
-                  {matchedMedicines.map(med => (
-                    <button
-                      key={med.id}
-                      onClick={() => handleItemClick('medicinesPharmacy')}
-                      className="w-full flex items-center justify-between p-2.5 rounded-xl hover:bg-[#141A28] text-left transition-colors"
-                    >
-                      <div className="flex items-center gap-3">
-                        <Pill className="w-4 h-4 text-purple-400" />
-                        <div>
-                          <p className="text-xs font-medium text-slate-100">{med.name} ({med.brand})</p>
-                          <p className="text-[11px] text-slate-400">{med.category} • ₹{med.price}</p>
-                        </div>
-                      </div>
-                      <ChevronRight className="w-4 h-4 text-slate-500" />
-                    </button>
-                  ))}
-                </div>
-              )}
 
               {matchedHospitals.length > 0 && (
                 <div>
@@ -149,7 +141,7 @@ export function GlobalSearchModal({ isOpen, onClose, onNavigate }) {
                 </div>
               )}
 
-              {matchedDoctors.length === 0 && matchedMedicines.length === 0 && matchedHospitals.length === 0 && (
+              {matchedDoctors.length === 0 && matchedHospitals.length === 0 && (
                 <div className="py-6 text-center">
                   <p className="text-xs text-slate-400">No results found for "{query}".</p>
                   <button

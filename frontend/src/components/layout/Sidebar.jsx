@@ -4,14 +4,10 @@ import {
   Bot,
   Stethoscope,
   Pill,
-  UserCheck,
   CalendarCheck,
-  ShoppingBag,
-  FlaskConical,
   FolderHeart,
   Sparkles,
   Apple,
-  Activity,
   AlertTriangle,
   FileSpreadsheet,
   Settings,
@@ -28,14 +24,10 @@ export const navItems = [
   { id: 'aiHealthAssistant', labelKey: 'nav.aiHealthAssistant', defaultLabel: 'AI Health Assistant', icon: Bot },
   { id: 'symptomChecker', labelKey: 'nav.symptomChecker', defaultLabel: 'Symptom Checker', icon: Stethoscope },
   { id: 'problemMedicine', labelKey: 'nav.problemMedicine', defaultLabel: 'Problem → Medicine', icon: Pill, badge: 'New' },
-  { id: 'findDoctors', labelKey: 'nav.findDoctors', defaultLabel: 'Find Doctors', icon: UserCheck },
   { id: 'bookAppointment', labelKey: 'nav.bookAppointment', defaultLabel: 'Book Appointment', icon: CalendarCheck },
-  { id: 'medicinesPharmacy', labelKey: 'nav.medicinesPharmacy', defaultLabel: 'Medicines & Pharmacy', icon: ShoppingBag },
-  { id: 'labTests', labelKey: 'nav.labTests', defaultLabel: 'Lab Tests', icon: FlaskConical },
   { id: 'healthRecords', labelKey: 'nav.healthRecords', defaultLabel: 'Health Records', icon: FolderHeart },
   { id: 'healthTips', labelKey: 'nav.healthTips', defaultLabel: 'Health Tips', icon: Sparkles },
   { id: 'dietNutrition', labelKey: 'nav.dietNutrition', defaultLabel: 'Diet & Nutrition', icon: Apple },
-  { id: 'wellnessTracker', labelKey: 'nav.wellnessTracker', defaultLabel: 'Wellness Tracker', icon: Activity },
   { id: 'emergencyHelp', labelKey: 'nav.emergencyHelp', defaultLabel: 'Emergency Help', icon: AlertTriangle },
   { id: 'reports', labelKey: 'nav.reports', defaultLabel: 'Reports', icon: FileSpreadsheet },
   { id: 'settings', labelKey: 'nav.settings', defaultLabel: 'Settings', icon: Settings },
@@ -82,7 +74,7 @@ export function Sidebar({ activePage, setActivePage }) {
                 </div>
                 {item.badge && (
                   <span className="px-1.5 py-0.5 text-[9px] font-bold rounded-full bg-pink-500 text-white shadow-[0_0_8px_rgba(236,72,153,0.6)] uppercase tracking-wider shrink-0 ml-1">
-                    {item.badge}
+                    {item.badge === 'All' ? t('common.all', 'All') : t('common.new', 'New')}
                   </span>
                 )}
               </button>

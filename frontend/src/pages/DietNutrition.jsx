@@ -6,6 +6,8 @@ import { MedicalDisclaimerBadge } from '../components/common/MedicalDisclaimerBa
 export function DietNutrition() {
   const [goal, setGoal] = useState('Maintain Vitality & Energy');
   const [preference, setPreference] = useState('Vegetarian');
+  const [age, setAge] = useState('');
+  const [weight, setWeight] = useState('');
   const [generatedPlan, setGeneratedPlan] = useState(null);
   const [isGenerating, setIsGenerating] = useState(false);
 
@@ -16,6 +18,7 @@ export function DietNutrition() {
     setTimeout(() => {
       setGeneratedPlan({
         title: `${preference} — ${goal} Nutrition Plan`,
+        profile: `${age} years · ${weight} kg`,
         earlyMorning: 'Warm lemon water with 5 soaked almonds & 2 walnuts',
         breakfast: 'Vegetable oats upma or whole grain paneer toast with green tea and a small bowl of papaya',
         midMorning: 'Tender coconut water or buttermilk (chaas) with roasted seeds',
@@ -26,7 +29,8 @@ export function DietNutrition() {
         guidelines: [
           'Chew mindfully and avoid consuming heavy meals within 2 hours of sleeping.',
           'Focus on rich color variety across vegetables for varied phytonutrients.',
-          'Limit ultra-processed snacks and excessive refined sugars.'
+          'Limit ultra-processed snacks and excessive refined sugars.',
+          `Use your age (${age}) and weight (${weight} kg) as context, but seek a dietitian for medical conditions or a precise calorie target.`
         ]
       });
       setIsGenerating(false);
@@ -50,6 +54,8 @@ export function DietNutrition() {
       {/* Plan Form */}
       <div className="bg-[#0D111A] border border-[#1E2638] rounded-3xl p-6 shadow-xl space-y-4">
         <form onSubmit={handleGenerate} className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div><label className="block text-xs font-semibold text-slate-300 mb-1.5">Age</label><input required min="1" max="120" type="number" value={age} onChange={(e) => setAge(e.target.value)} placeholder="Years" className="w-full bg-[#121622] border border-[#20283E] rounded-xl px-3.5 py-2.5 text-xs text-slate-200 focus:outline-none focus:border-cyan-500" /></div>
+          <div><label className="block text-xs font-semibold text-slate-300 mb-1.5">Weight</label><input required min="2" max="500" type="number" value={weight} onChange={(e) => setWeight(e.target.value)} placeholder="Weight in kg" className="w-full bg-[#121622] border border-[#20283E] rounded-xl px-3.5 py-2.5 text-xs text-slate-200 focus:outline-none focus:border-cyan-500" /></div>
           <div>
             <label className="block text-xs font-semibold text-slate-300 mb-1.5">Health & Wellness Goal</label>
             <select
@@ -98,7 +104,7 @@ export function DietNutrition() {
           <div className="flex justify-between items-center pb-4 border-b border-[#1E2638]">
             <div>
               <h3 className="text-base font-bold text-white">{generatedPlan.title}</h3>
-              <p className="text-xs text-emerald-400">💧 Daily Hydration Target: {generatedPlan.hydration}</p>
+              <p className="text-xs text-emerald-400">{generatedPlan.profile} · 💧 Daily Hydration Target: {generatedPlan.hydration}</p>
             </div>
             <button
               onClick={() => exportToPDF({ title: generatedPlan.title, category: 'Personalized Nutrition Plan', language: 'EN', content: generatedPlan })}
