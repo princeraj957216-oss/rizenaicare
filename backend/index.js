@@ -52,6 +52,12 @@ app.use('/api/*', (req, res) => {
 // Central Error Handler
 app.use(errorHandler);
 
-app.listen(PORT, () => {
-  console.log(`[RIZEN CARE API] Server active on http://localhost:${PORT}`);
-});
+// Vercel loads the Express app as a serverless function. Keep the local
+// listener for development, but export the app for the hosted runtime.
+if (!process.env.VERCEL) {
+  app.listen(PORT, () => {
+    console.log(`[RIZEN CARE API] Server active on http://localhost:${PORT}`);
+  });
+}
+
+export default app;
