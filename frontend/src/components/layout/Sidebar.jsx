@@ -19,6 +19,7 @@ import { useLanguage } from '../../context/LanguageContext';
 
 export const navItems = [
   { id: 'dashboard', labelKey: 'nav.dashboard', defaultLabel: 'Dashboard', icon: LayoutDashboard },
+  { id: 'reports', labelKey: 'nav.reports', defaultLabel: 'Reports', icon: FileSpreadsheet },
   { id: 'allTools', labelKey: 'nav.allTools', defaultLabel: 'All AI Tools', icon: Grid, badge: 'All' },
   { id: 'createTool', labelKey: 'nav.createTool', defaultLabel: 'Create a Tool', icon: Wrench, badge: 'New' },
   { id: 'aiHealthAssistant', labelKey: 'nav.aiHealthAssistant', defaultLabel: 'AI Health Assistant', icon: Bot },
@@ -29,7 +30,6 @@ export const navItems = [
   { id: 'healthTips', labelKey: 'nav.healthTips', defaultLabel: 'Health Tips', icon: Sparkles },
   { id: 'dietNutrition', labelKey: 'nav.dietNutrition', defaultLabel: 'Diet & Nutrition', icon: Apple },
   { id: 'emergencyHelp', labelKey: 'nav.emergencyHelp', defaultLabel: 'Emergency Help', icon: AlertTriangle },
-  { id: 'reports', labelKey: 'nav.reports', defaultLabel: 'Reports', icon: FileSpreadsheet },
   { id: 'settings', labelKey: 'nav.settings', defaultLabel: 'Settings', icon: Settings },
 ];
 
